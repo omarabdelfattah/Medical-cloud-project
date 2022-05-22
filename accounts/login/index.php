@@ -23,16 +23,27 @@ if($request_method == "POST" ){
             $username = $data->username;
             $password = sha1($data->password);
 
-            $check_email = "SELECT `name`,`username`,`email`,`phone`,`address` FROM `users` WHERE ( `email`=:username OR `username`=:username  ) AND  `password`=:password " ;
-            $check_email_stmt = $conn->prepare($check_email);
-            $check_email_stmt->bindValue(':username', $username, PDO::PARAM_STR);
-            $check_email_stmt->bindValue(':password', $password, PDO::PARAM_STR);
-            $check_email_stmt->execute();
+            $login = "SELECT `name`,`username`,`email`,`phone`,`address` FROM `users` WHERE ( `email`=:username OR `username`=:username  ) AND  `password`=:password " ;
+            $login_stmt = $conn->prepare($login);
+            $login_stmt->bindValue(':username', $username, PDO::PARAM_STR);
+            $login_stmt->bindValue(':password', $password, PDO::PARAM_STR);
+            $login_stmt->execute();
 
-            if ($check_email_stmt->rowCount()){
+            if ($login_stmt->rowCount()){
+
+                $user_data = $login_stmt->fetch();
+                $user_data = [
+                    'name'      => $user_data['name'],
+                    'username'  => $user_data['username'],
+                    'email'     => $user_data['email'],
+                    'phone'     => $user_data['phone'],
+                    'address'   => $user_data['address'],
+                ];
+
                 $data = [
-                    "status" => "success",
-                    "msg"    => 'Logged in successfully'
+                    "status"    => "success",
+                    "msg"       => 'Logged in successfully',
+                    "user_info" => $user_data
                 ];
 
             }else{

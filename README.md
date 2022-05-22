@@ -2,10 +2,8 @@
 
 
 POST :
-    - Login 
+    - Login  (OK)
     - Register (OK)
-    - Get account information
-    - Checkout
 
 Get :
     -  Get all product
