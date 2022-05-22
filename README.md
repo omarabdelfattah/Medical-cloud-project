@@ -3,7 +3,7 @@
 
 POST :
     - Login 
-    - Register
+    - Register (OK)
     - Get account information
     - Checkout
 
