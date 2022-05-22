@@ -12,4 +12,6 @@ Get : <br/>
 <br/>
 To test using POSTMAN (https://www.postman.com/)
 <br/>
+<br/>
+<br/>
 <img src="how_to_test.gif" width="100%"/>
