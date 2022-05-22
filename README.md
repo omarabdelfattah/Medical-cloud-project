@@ -1,15 +1,15 @@
 "# ecommerce_api" 
-
-
-POST :
-    - Login  (OK)
-    - Register (OK)
-
-Get :
-    -  Get all product
-    -  Search for product
-    -  Get details of product
-
+<br/>
+<br/>
+POST : <br/>
+    - Login  (OK) <br/>
+    - Register (OK) <br/>
+<br/>
+Get : <br/>
+    -  Get all product <br/>
+    -  Search for product <br/>
+    -  Get details of product <br/>
+<br/>
 To test using POSTMAN (https://www.postman.com/)
-
+<br/>
 <img src="how_to_test.gif" width="100%"/>
