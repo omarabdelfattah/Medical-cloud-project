@@ -14,7 +14,7 @@ $request_method = $_SERVER['REQUEST_METHOD']; // Check Server request method
 
 $data = json_decode(file_get_contents("php://input"));
 
- 
+
 if($request_method == "POST" ){
     
     if(isset($data->username) && isset($data->password)  ){
