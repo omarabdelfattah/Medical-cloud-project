@@ -1,10 +1,12 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');
 header('Access-Control-Allow-Headers: X-Requested-With');
 header('Content-Type: application/json');
 
 require 'config.php';
+require '../functions.php'; 
 
 
 $request_method = $_SERVER['REQUEST_METHOD']; 
@@ -12,15 +14,39 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents("php://input"));
 
 
+
+
 if($request_method == "GET" ){
 
-
+    if(isset($data->id)  ){
     try {
-       
 
-        $products = "SELECT * FROM `products` ";
+
+        if(isset($data->token)){
+            if(check_token($conn,$data->token) == false){
+                $data = [
+                    "status" => "error",
+                    "msg"    => "Token is invalid or expired"
+                ];
+                echo json_encode($data);
+                return;
+            }
+        }else{
+            $data = [
+                "status" => "error",
+                "msg"    => "Token is required"
+            ];
+            echo json_encode($data);
+            return;
+        }
+
+        $id=$data->id;
+        $products = "SELECT * FROM `products` where `id` = :id ";
+        
         $products_stmt = $conn->prepare($products);
+        $products_stmt->bindValue(':id',$id, PDO::PARAM_STR);
         $products_stmt->execute();
+        
 
         if ($products_stmt->rowCount()){
 
@@ -42,7 +68,7 @@ if($request_method == "GET" ){
         }else{
             $data = [
                 "status" => "error",
-                "msg"    => 'username or password is wrong'
+                "msg"    => 'no data found'
             ];
         }
     } catch (PDOException $e) {
@@ -59,6 +85,6 @@ if($request_method == "GET" ){
 
     echo json_encode($data);
 
-
+    }
 
 }

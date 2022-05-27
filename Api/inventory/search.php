@@ -6,6 +6,7 @@ header('Access-Control-Allow-Headers: X-Requested-With');
 header('Content-Type: application/json');
 
 require 'config.php';
+require '../functions.php'; 
 
 
 $request_method = $_SERVER['REQUEST_METHOD']; 
@@ -15,15 +16,34 @@ $data = json_decode(file_get_contents("php://input"));
 
 
 
-if($request_method == "POST" ){
+if($request_method == "GET" ){
 
-    if(isset($data->id)  ){
+    if(isset($data->name)  ){
     try {
-        $id=$data->id;
-        $products = "SELECT * FROM `products` where `id` = :id ";
-        
+
+        if(isset($data->token)){
+            if(check_token($conn,$data->token) == false){
+                $data = [
+                    "status" => "error",
+                    "msg"    => "Token is invalid or expired"
+                ];
+                echo json_encode($data);
+                return;
+            }
+        }else{
+            $data = [
+                "status" => "error",
+                "msg"    => "Token is required"
+            ];
+            echo json_encode($data);
+            return;
+        }
+
+
+        $name=$data->name;
+        $products = "SELECT * FROM `products` where `name` Like :name ";
         $products_stmt = $conn->prepare($products);
-        $products_stmt->bindValue(':id',$id, PDO::PARAM_STR);
+        $products_stmt->bindValue(':name','%'.$name.'%', PDO::PARAM_STR);
         $products_stmt->execute();
         
 

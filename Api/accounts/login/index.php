@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 
 
 require '../config.php';
-// require 'functions.php';
+require '../../functions.php'; 
 
 $request_method = $_SERVER['REQUEST_METHOD']; // Check Server request method
 
@@ -23,7 +23,7 @@ if($request_method == "POST" ){
             $username = $data->username;
             $password = sha1($data->password);
 
-            $login = "SELECT `name`,`username`,`email`,`phone`,`address` FROM `users` WHERE ( `email`=:username OR `username`=:username  ) AND  `password`=:password " ;
+            $login = "SELECT `id`, `name`,`username`,`email`,`phone`,`address` FROM `users` WHERE ( `email`=:username OR `username`=:username  ) AND  `password`=:password " ;
             $login_stmt = $conn->prepare($login);
             $login_stmt->bindValue(':username', $username, PDO::PARAM_STR);
             $login_stmt->bindValue(':password', $password, PDO::PARAM_STR);
@@ -32,20 +32,32 @@ if($request_method == "POST" ){
             if ($login_stmt->rowCount()){
 
                 $user_data = $login_stmt->fetch();
-                $user_data = [
-                    'name'      => $user_data['name'],
-                    'username'  => $user_data['username'],
-                    'email'     => $user_data['email'],
-                    'phone'     => $user_data['phone'],
-                    'address'   => $user_data['address'],
-                ];
 
-                $data = [
-                    "status"    => "success",
-                    "msg"       => 'Logged in successfully',
-                    "user_info" => $user_data
-                ];
+                $token = reg_token($conn,$user_data['id']);
 
+                if( $token != false){
+
+                    $user_data = [
+                        'name'      => $user_data['name'],
+                        'username'  => $user_data['username'],
+                        'email'     => $user_data['email'],
+                        'phone'     => $user_data['phone'],
+                        'address'   => $user_data['address'],
+                    ];
+    
+                    $data = [
+                        "status"    => "success",
+                        "msg"       => 'Logged in successfully',
+                        "user_info" => $user_data,
+                        "token"     => $token
+                    ];
+    
+                }else{
+                    $data = [
+                        "status" => "error",
+                        "msg"    => 'Can\'t register a new token'
+                    ];
+                }
             }else{
                 $data = [
                     "status" => "error",
