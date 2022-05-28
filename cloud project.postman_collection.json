@@ -90,28 +90,29 @@
 			"response": []
 		},
 		{
-			"name": "get all products",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "create order",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"token\" : \"a28a5e44adea3f8f4e6906ec1c12dde8f975577f\"\r\n}"
+					"raw": "{\r\n   \"products\": [\r\n       {\r\n        \"count\": 2,\r\n        \"product_id\": 1\r\n       },\r\n              {\r\n        \"count\": 3,\r\n        \"product_id\": 2\r\n       },\r\n              {\r\n        \"count\": 6,\r\n        \"product_id\": 5\r\n       },\r\n              {\r\n        \"count\": 1,\r\n        \"product_id\": 7\r\n       }\r\n   ],\r\n    \"token\": \"4ebb4c52a8af5924ea7727a9fce62e7aa13a67e1\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "http://localhost/cloud_project_api/Api/inventory/",
+					"raw": "http://localhost:9090/orders/create.php",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
+					"port": "9090",
 					"path": [
-						"cloud_project_api",
-						"Api",
-						"inventory",
-						""
+						"orders",
+						"create.php"
 					]
 				}
 			},
@@ -157,39 +158,38 @@
 			"response": []
 		},
 		{
-			"name": "search",
+			"name": "get all products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "create order",
-			"request": {
-				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"products\": [\r\n       {\r\n        \"count\": 2,\r\n        \"product_id\": 1\r\n       },\r\n              {\r\n        \"count\": 3,\r\n        \"product_id\": 2\r\n       },\r\n              {\r\n        \"count\": 6,\r\n        \"product_id\": 5\r\n       },\r\n              {\r\n        \"count\": 1,\r\n        \"product_id\": 7\r\n       }\r\n   ],\r\n    \"token\": \"4ebb4c52a8af5924ea7727a9fce62e7aa13a67e1\"\r\n\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\r\n    \"token\" : \"a28a5e44adea3f8f4e6906ec1c12dde8f975577f\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:9090/orders/create.php",
+					"raw": "http://localhost/cloud_project_api/Api/inventory/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "9090",
 					"path": [
-						"orders",
-						"create.php"
+						"cloud_project_api",
+						"Api",
+						"inventory",
+						""
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}

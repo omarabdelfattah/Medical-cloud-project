@@ -35,27 +35,32 @@ if($request_method == "GET" ){
             return;
         }
 
-
-
         $products = "SELECT * FROM `products` ";
         $products_stmt = $conn_inventory->prepare($products);
         $products_stmt->execute();
 
         if ($products_stmt->rowCount()){
 
-            $user_data = $products_stmt->fetch();
-            $user_data = [
-                'name'      => $user_data['name'],
-                'price'  => $user_data['price'],
-                'desc'     => $user_data['description'],
-                'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']."uploads/".$user_data['img'],
-                'count'   => $user_data['count'],
-            ];
+            $product_data = $products_stmt->fetchAll();
+            $product_list = [];
+            foreach($product_data as  $product){
+
+                $product = [
+                    'name'      => $product['name'],
+                    'price'  => $product['price'],
+                    'desc'     => $product['description'],
+                    'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] ."/uploads/".$product['img'],
+                    'count'   => $product['count'],
+                ];
+
+                array_push($product_list,$product);
+            }
+
 
             $data = [
                 "status"    => "success",
                 "msg"       => 'data is  received',
-                "user_info" => $user_data
+                "product_list" => $product_list
             ];
 
         }else{
