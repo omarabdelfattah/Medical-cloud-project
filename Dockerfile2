@@ -6,10 +6,14 @@ WORKDIR frontendserver
 # COPY calculator-master/package.json ./
 # COPY calculator-master/yarn.lock ./
 # RUN yarn install
-# RUN npm install
 # Copy app files
 COPY frontendserver ./
+
+
+
 # Expose port
-EXPOSE 30000
+EXPOSE 3000
 # Start the app
+RUN npm install
+
 CMD [ "npm", "start" ]
