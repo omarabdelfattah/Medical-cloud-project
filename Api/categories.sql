@@ -18,37 +18,21 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `inventory`
+-- Database: `categories`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Table structure for table `product_categories`
 --
 
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE IF NOT EXISTS `products` (
+DROP TABLE IF EXISTS `product_categories`;
+CREATE TABLE IF NOT EXISTS `product_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `price` varchar(255) NOT NULL,
-  `description` varchar(500) NOT NULL,
-  `img` varchar(500) NOT NULL,
-  `count` int(11) NOT NULL,
-  `cat_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_categories` (`cat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `product_categories` FOREIGN KEY (`cat_id`) REFERENCES `categories`.`product_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  `name` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

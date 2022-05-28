@@ -28,12 +28,9 @@ services:
       - inventory_db:db
       - auth_db:db
       - accounts_db:db
-
-    command: "php  -S 0.0.0.0:9090 "
-
     # volumes:
     #   - ./:/api
-    # command: "php artisan serve --host=0.0.0.0 --port=9090"
+    command: "php  -S 0.0.0.0:9090 "
 
   phpmyadmin_inventory:
     image: phpmyadmin
@@ -105,4 +102,5 @@ volumes:
   inventory_db:
   accounts_db:
   orders_db:
-  app:
+  frontendserver:
+  api:
