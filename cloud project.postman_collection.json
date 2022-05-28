@@ -158,6 +158,14 @@
 			"response": []
 		},
 		{
+			"name": "get categories",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
 			"name": "get all products",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
