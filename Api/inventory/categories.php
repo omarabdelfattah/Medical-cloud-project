@@ -1,5 +1,4 @@
 <?php
-
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');
 header('Access-Control-Allow-Headers: X-Requested-With');
@@ -14,14 +13,10 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents("php://input"));
 
 
-
-
 if($request_method == "GET" ){
 
-    if(isset($data->id)  ){
     try {
-
-
+        
         if(isset($data->token)){
             if(check_token($conn_accounts,$data->token) == false){
                 $data = [
@@ -40,36 +35,35 @@ if($request_method == "GET" ){
             return;
         }
 
-        $id=$data->id;
-        $products = "SELECT * FROM `products` where `id` = :id ";
-        
+        $products = "SELECT * FROM `product_categories` ";
         $products_stmt = $conn_inventory->prepare($products);
-        $products_stmt->bindValue(':id',$id, PDO::PARAM_STR);
         $products_stmt->execute();
-        
 
         if ($products_stmt->rowCount()){
 
-            $product_data = $products_stmt->fetch();
-            $product_data = [
-                'name'      => $product_data['name'],
-                'price'  => $product_data['price'],
-                'desc'     => $product_data['description'],
-                'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']."uploads/".$product_data['img'],
-                'count'   => $product_data['count'],
-                'count'   =>    get_category($conn_inventory,$product['cat_id']),
-            ];
+            $categories_data = $products_stmt->fetchAll();
+            $categories_list = [];
+            foreach($categories_data as  $product){
+
+                $product = [
+                    'name'      => $product['name'],
+                ];
+
+                array_push($categories_list,$product);
+            }
+
 
             $data = [
                 "status"    => "success",
-                "msg"       => 'product found',
-                "product_info" => $product_data
+                "msg"       => 'data is  received',
+                "categories_list" => $categories_list
             ];
 
+            
         }else{
             $data = [
                 "status" => "error",
-                "msg"    => 'no data found'
+                "msg"    => 'username or password is wrong'
             ];
         }
     } catch (PDOException $e) {
@@ -86,6 +80,6 @@ if($request_method == "GET" ){
 
     echo json_encode($data);
 
-    }
+
 
 }

@@ -57,4 +57,26 @@ function check_token($conn,$token){
     }
 }
 
+function get_category($conn,$cat_id){ 
+
+    # get the category name from the category id
+    $query = "SELECT * FROM `product_categories` WHERE `id`=:cat_id";
+    # prepare the query
+    $stmt = $conn->prepare($query);
+    # bind the value
+    $stmt->bindValue(':cat_id', $cat_id, PDO::PARAM_INT);
+    # execute the query
+    $stmt->execute();
+
+    if ($stmt->rowCount()){
+        # get the data
+        $cat_data = $stmt->fetch();
+        # return the data
+        return $cat_data['name'];
+    }else{
+        return false;
+    }
+}
+
+
 ?>
