@@ -61,8 +61,8 @@ if($request_method == "GET" ){
 
             $data = [
                 "status"    => "success",
-                "msg"       => 'data is  received',
-                "user_info" => $user_data
+                "msg"       => 'product found',
+                "product_info" => $user_data
             ];
 
         }else{
