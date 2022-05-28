@@ -87,7 +87,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - inventory_db:/var/lib/mysql
+      - orders_db:/var/lib/mysql
 
 volumes:
   auth_db:

@@ -5,7 +5,7 @@ header('Access-Control-Allow-Methods: GET, POST');
 header('Access-Control-Allow-Headers: X-Requested-With');
 header('Content-Type: application/json');
 
-require 'config.php';
+require '../config.php';
 require '../functions.php'; 
 
 
@@ -23,7 +23,7 @@ if($request_method == "GET" ){
 
 
         if(isset($data->token)){
-            if(check_token($conn,$data->token) == false){
+            if(check_token($conn_accounts,$data->token) == false){
                 $data = [
                     "status" => "error",
                     "msg"    => "Token is invalid or expired"
@@ -43,7 +43,7 @@ if($request_method == "GET" ){
         $id=$data->id;
         $products = "SELECT * FROM `products` where `id` = :id ";
         
-        $products_stmt = $conn->prepare($products);
+        $products_stmt = $conn_inventory->prepare($products);
         $products_stmt->bindValue(':id',$id, PDO::PARAM_STR);
         $products_stmt->execute();
         

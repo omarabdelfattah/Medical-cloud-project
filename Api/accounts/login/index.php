@@ -7,7 +7,7 @@ header('Access-Control-Allow-Headers: X-Requested-With');
 header('Content-Type: application/json');
 
 
-require '../config.php';
+require '../../config.php';
 require '../../functions.php'; 
 
 $request_method = $_SERVER['REQUEST_METHOD']; // Check Server request method
@@ -24,7 +24,7 @@ if($request_method == "POST" ){
             $password = sha1($data->password);
 
             $login = "SELECT `id`, `name`,`username`,`email`,`phone`,`address` FROM `users` WHERE ( `email`=:username OR `username`=:username  ) AND  `password`=:password " ;
-            $login_stmt = $conn->prepare($login);
+            $login_stmt = $conn_accounts->prepare($login);
             $login_stmt->bindValue(':username', $username, PDO::PARAM_STR);
             $login_stmt->bindValue(':password', $password, PDO::PARAM_STR);
             $login_stmt->execute();
@@ -33,7 +33,7 @@ if($request_method == "POST" ){
 
                 $user_data = $login_stmt->fetch();
 
-                $token = reg_token($conn,$user_data['id']);
+                $token = reg_token($conn_accounts,$user_data['id']);
 
                 if( $token != false){
 

@@ -7,7 +7,7 @@ header('Access-Control-Allow-Headers: X-Requested-With');
 header('Content-Type: application/json');
 
 
-require '../config.php';
+require '../../config.php';
 // require 'functions.php';
 
 $request_method = $_SERVER['REQUEST_METHOD']; // Check Server request method
@@ -30,7 +30,7 @@ if($request_method == "POST" ){
             $address = $data->address;
 
             $check_email = "SELECT `email` FROM `users` WHERE `email`=:email";
-            $check_email_stmt = $conn->prepare($check_email);
+            $check_email_stmt = $conn_accounts->prepare($check_email);
             $check_email_stmt->bindValue(':email', $email, PDO::PARAM_STR);
             $check_email_stmt->execute();
 
@@ -43,7 +43,7 @@ if($request_method == "POST" ){
             }else{
                 $insert_query = "INSERT INTO `users`(`name`,`username`,`password`,`email`,`phone`,`address`) VALUES(:name,:username,:password,:email,:phone,:address)";
 
-                $insert_stmt = $conn->prepare($insert_query);
+                $insert_stmt = $conn_accounts->prepare($insert_query);
 
                 // DATA BINDING
                 $insert_stmt->bindValue(':name', $name, PDO::PARAM_STR);
