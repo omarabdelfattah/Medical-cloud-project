@@ -41,11 +41,11 @@ function Productinfo() {
             </li>
           </ul>
         </div>
-        <div class="col-4">
-          <img src={product[0].image} class="drug" style={{ width: "90%" }} />
+        <div className="col-4">
+          <img src={product[0].image} className="drug" style={{ width: "90%" }} />
         </div>
       </div>
-      <div class="row">
+      <div className="row">
         <h3>Adverse Effects:</h3>
         <p>
           <big>{product[0].Adverse_Effects}</big>

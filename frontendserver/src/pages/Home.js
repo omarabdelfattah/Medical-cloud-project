@@ -8,7 +8,7 @@ export default function Home(props) {
     <div>
       <PageNav />
       <Header />
-
+      
       <div className="container">
         <h1
           className="text-start mt-3"
@@ -23,6 +23,7 @@ export default function Home(props) {
               About={Data.About}
               Name={Data.Name}
               id={Data.id}
+              key={Data.id}
             />
           ))}
         </div>

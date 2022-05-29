@@ -26,7 +26,7 @@ export default function Header() {
                                     rhoncus, et varius tortor sodales. Nam faucibus,
                                     ligula in lacinia dapibus, diam quam malesuada 
                                     lorem,vel placerat turpis neque non augue.</p>
-                                <a className="btn btn-lg btn-danger p-2" role="button"><Link to="/About" style={{textDecoration:"none",color:"white"}}>Learn More</Link></a>
+                                    <Link to="/About" className="btn btn-lg btn-danger p-2" role="button" style={{textDecoration:"none",color:"white"}}>Learn More</Link>
                             </div>
                             <div className="col-sm-6  col-2 ">
                                 <img src={capsule} height="250rem"/>
