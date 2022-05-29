@@ -1,12 +1,12 @@
 class RegisterResponseModel {
 
-  late final String error;
+  late final String status;
 
-  RegisterResponseModel({ required this.error});
+  RegisterResponseModel({ required this.status});
   factory RegisterResponseModel.fromJson(Map<String, dynamic> json) {
     return RegisterResponseModel(
         
-        error: json["error"] != null ? json["error"] : "");
+        status: json["status"] != null ? json["status"] : "");
   }
 }
 
