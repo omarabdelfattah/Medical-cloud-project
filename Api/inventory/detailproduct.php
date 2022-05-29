@@ -50,19 +50,20 @@ if($request_method == "GET" ){
 
         if ($products_stmt->rowCount()){
 
-            $user_data = $products_stmt->fetch();
-            $user_data = [
-                'name'      => $user_data['name'],
-                'price'  => $user_data['price'],
-                'desc'     => $user_data['description'],
-                'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']."uploads/".$user_data['img'],
-                'count'   => $user_data['count'],
+            $product_data = $products_stmt->fetch();
+            $product_data = [
+                'name'      => $product_data['name'],
+                'price'  => $product_data['price'],
+                'desc'     => $product_data['description'],
+                'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']."uploads/".$product_data['img'],
+                'count'   => $product_data['count'],
+                'count'   =>    get_category($conn_inventory,$product['cat_id']),
             ];
 
             $data = [
                 "status"    => "success",
                 "msg"       => 'product found',
-                "product_info" => $user_data
+                "product_info" => $product_data
             ];
 
         }else{

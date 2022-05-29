@@ -50,7 +50,8 @@ if($request_method == "GET" ){
                     'price'  => $product['price'],
                     'desc'     => $product['description'],
                     'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] ."/uploads/".$product['img'],
-                    'count'   => $product['count'],
+                    'count'   =>    get_category($conn_inventory,$product['cat_id']),
+                    'category'   => $product['count'],
                 ];
 
                 array_push($product_list,$product);
