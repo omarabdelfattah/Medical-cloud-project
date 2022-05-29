@@ -12,6 +12,7 @@ import PageNav from "./components/PageNav";
 import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import UserProfile from './pages/UserProfile';
 // import "./App.css";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/Contact" element={<Contact />}></Route>
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path='/profile' element={<UserProfile/>}></Route>
       </Routes>
       <Footer />
     </div>

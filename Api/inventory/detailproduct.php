@@ -52,6 +52,7 @@ if($request_method == "POST" ){
 
             $product_data = $products_stmt->fetch();
             $product_data = [
+                'id'      => $product['id'],
                 'name'      => $product_data['name'],
                 'price'  => $product_data['price'],
                 'desc'     => $product_data['description'],

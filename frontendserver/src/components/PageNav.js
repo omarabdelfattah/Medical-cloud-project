@@ -21,6 +21,7 @@ function PageNav() {
   const email =  cookies.email;
   const phone =  cookies.phone;
   const address =  cookies.address;
+  const [categories_list, setCategoriesList] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -29,13 +30,11 @@ function PageNav() {
 
   // console.log("hey "+name+ " your token is "+ token );
   useEffect(async  () =>  {
-    console.log(token);
+    // console.log(token);
     try {
-      const response = await axios.get(CATEGORIES_URL,
+      const response = await axios.post(CATEGORIES_URL,
+        JSON.stringify({token:token}),
         {
-          data: {
-            token: token,
-          },
           headers: { 
             'Content-Type': 'application/json',
           },
@@ -44,13 +43,14 @@ function PageNav() {
   
       const status = response?.data?.status;
       const msg = response?.data?.msg;
-      const categories_list = response?.data?.categories_list;
+      const cat_list = response?.data?.categories_list;
       // get categories list from server
-      console.log(response?.data);
-      console.log(status);
   
       if (status == 'success') {
-  
+
+        setCategoriesList(cat_list);
+        // console.log(categories_list);
+
       }else{
         if(response?.data?.response?.msg){
           setErrMsg(response?.data?.response?.msg);
@@ -61,16 +61,12 @@ function PageNav() {
   
   
     } catch (err) {
-  
-      
+
       if(!err.response){
         setErrMsg("categories list fetch error or server error");
       } else {
         setErrMsg("error with get categories");
       }
-  
-      console.log(err);
-  
   
     }
   
@@ -103,88 +99,23 @@ function PageNav() {
             >
               <div className="row">
                 <div className="col-6">
-                  <NavDropdown.Item className="dropItem">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Cardiovascular system
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="dropItem">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Eye & Nose
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="dropItem">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Endocrine system
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="dropItem2">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Infections
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="dropItem">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Gastrointestinal tract
-                    </Link>
-                  </NavDropdown.Item>
-                </div>
-                <div className="col-6">
-                  <NavDropdown.Item className="dropItem4">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      CNS
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="dropItem5">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Respiratory system
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="dropItem6">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Analgesics
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="dropItem">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Gynecologic
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="dropItem8">
-                    <Link
-                      to="/Categories"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Urinary tract
-                    </Link>
-                  </NavDropdown.Item>
+                    {
+                      Object.entries(categories_list).map(([key, category], i )  => { 
+                        // console.log(category);
+                        return (
+                        <NavDropdown.Item className="dropItem">
+                        <Link
+                          to={"/Categories/"+category.id}
+                          style={{ textDecoration: "none", color: "black" }}
+                          key={key}
+                          id={key}
+                          >
+                          {category.name}
+                        </Link>
+                        </NavDropdown.Item>
+                        );
+                    })
+                  }
                 </div>
               </div>
             </NavDropdown>
@@ -215,6 +146,10 @@ function PageNav() {
             >
             </NavLink>
           </Col>
+          <Col style={{marginTop:"1%",marginLeft:"20px"}}>
+            <NavLink activeclassname="active" to="/profile" className='links' style={{textDecoration:"none"}}>Profile</NavLink>
+          </Col>
+
         </Row>
       </div>
     </Navbar>
