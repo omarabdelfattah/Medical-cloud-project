@@ -17,11 +17,12 @@ export default function Home(props) {
           New Release
         </h1>
         <div className="row justify-content-between  pb-5">
-          {props.Items.map((Data,key) => (
+          {props.Items.slice(0,9).map((Data,key) => (
             <ItemDataFram
               image={Data.img}
               About={Data.id}
               Name={Data.name}
+              price={Data.price}
               id={Data.id}
               key={key}
             />
