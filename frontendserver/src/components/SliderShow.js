@@ -17,9 +17,10 @@ function SliderShow(slide2) {
     return(
    <Row>
         
-       {sliderD.map((slide) => 
-        <div className="col-lg-6 col-md-6">
-      <Card img={slide.img} Title={slide.title} Subtitle={slide.Text} Text={slide.FB}></Card>
+       { 
+       sliderD.map((slide,index) => 
+        <div className="col-lg-6 col-md-6" key={index}>
+      <Card img={slide.img} Title={slide.title} Subtitle={slide.Text} Text={slide.FB} key={index}></Card>
       </div> 
       )}  
     </Row>

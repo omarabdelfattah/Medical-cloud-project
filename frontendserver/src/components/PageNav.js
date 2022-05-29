@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../assets/Medical Rep Logo.png";
 import Row from "react-bootstrap/Row";
@@ -7,7 +7,18 @@ import { Link } from "react-router-dom";
 import "../styles/Nav.css";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
+import { useCookies, Cookies } from 'react-cookie';
+
 function PageNav() {
+
+  const [cookies] = useCookies(['token', 'name', 'username', 'email', 'phone', 'address']);
+  const token =  cookies.token;
+  const name =  cookies.name;
+  const username =  cookies.username;
+  const email =  cookies.email;
+  const phone =  cookies.phone;
+  const address =  cookies.address;
+  // console.log("hey "+name+ " your token is "+ token );
   return (
     <Navbar className="Nav">
       <div className="container pt-4">
@@ -19,8 +30,7 @@ function PageNav() {
           </Col>
           <Col style={{ marginTop: "1%" }}>
             <NavLink
-              activeClassName="active"
-              className="links"
+              className="active links"
               style={{ textDecoration: "none" }}
               to="/home"
             >
@@ -124,9 +134,8 @@ function PageNav() {
           </Col>
           <Col style={{ marginTop: "1%" }}>
             <NavLink
-              activeClassName="active"
               to="/About"
-              className="links"
+              className="active links"
               style={{ textDecoration: "none" }}
             >
               About
@@ -134,12 +143,19 @@ function PageNav() {
           </Col>
           <Col style={{ marginTop: "1%", marginLeft: "20px" }}>
             <NavLink
-              activeClassName="active"
               to="/Contact"
-              className="links"
+              className="active links"
               style={{ textDecoration: "none" }}
             >
               Contact
+            </NavLink>
+          </Col>
+          <Col style={{ marginTop: "1%", marginLeft: "20px" }}>
+            <NavLink
+              to="/Contact"
+              className="active links"
+              style={{ textDecoration: "none" }}
+            >
             </NavLink>
           </Col>
         </Row>

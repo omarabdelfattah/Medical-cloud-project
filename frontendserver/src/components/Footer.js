@@ -20,13 +20,13 @@ export default function Footer(props) {
         
             <div>
                     
-                    <a href="" class="me-4 text-reset">
+                    <a href="" className="me-4 text-reset">
                        <FaFacebook/>
                     </a>
-                    <a href="" class="me-4 text-reset">
+                    <a href="" className="me-4 text-reset">
                         <FaTwitter/>
                     </a>
-                    <a href="" class="me-4 text-reset">
+                    <a href="" className="me-4 text-reset">
                         <FaGoogle/>
                     </a>
                    
