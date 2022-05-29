@@ -96,8 +96,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 }).then((value) {
                   // print(value.token);
 
-                  if (value.token.isNotEmpty) {
+                  if (value.status == "success") {
                     final snackBar = SnackBar(content: Text("login"));
+
+                    print(value.status);
 
                     setdata(value.token);
                     Navigator.push(context,

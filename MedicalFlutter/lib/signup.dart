@@ -114,8 +114,8 @@ class RegisterScreen extends StatelessWidget {
                   "address": locationController.text,
                   "name": usernameController.text
                 }).then((value) {
-                  if (value.error.isEmpty) {
-                    print(value.error);
+                  if (value.status=="success") {
+                    print(value.status);
 
                      Navigator.push(
                     context, MaterialPageRoute(builder: (context) => LoginScreen()));
