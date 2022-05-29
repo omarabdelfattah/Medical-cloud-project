@@ -1,20 +1,71 @@
-import React from "react";
-import { data_list } from "../components/Home/ItemData";
+import React, {useContext ,useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useCookies, Cookies } from 'react-cookie';
 
 import "../styles/Productinfo.css";
 
 import PageNav from "../components/PageNav";
+import axios from "../api/axios";
+const PRODUCT_INFO_URL = "/inventory/detailproduct.php";
 
 function Productinfo() {
-  console.log(data_list);
+
+  const [cookies] = useCookies(['token']);
+const token =  cookies.token;
+const [product_info, setproductInfo] = useState("");
+const [errMsg, setErrMsg] = useState("");
+
+// console.log("hey "+name+ " your token is "+ token );
+useEffect(async  () =>  {
+
+  try {
+    const response = await axios.post(PRODUCT_INFO_URL,
+      JSON.stringify({token:token}),
+      {
+        headers: { 
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    const status = response?.data?.status;
+    const msg = response?.data?.msg;
+    const product_info = response?.data?.product_info;
+    // get product list from server
+
+    if (status == 'success') {
+
+      setproductInfo(product_info);
+      console.log(product_info);
+    }else{
+      if(response?.data?.response?.msg){
+        setErrMsg(response?.data?.response?.msg);
+      }else{
+        setErrMsg("error with get product");
+      }
+    }
+
+
+  } catch (err) {
+
+    if(!err.response){
+      setErrMsg("product list fetch error or server error");
+    } else {
+      setErrMsg("error with get product");
+    }
+
+  }
+
+}, []);
+
   let { id } = useParams();
-  let product = data_list.filter((drug) => drug.id == id);
+
+  
   return (
     <div className="container mt-3">
       <PageNav />
 
-      <div className="row">
+      {/* <div className="row">
         <div className="col-8">
           <h1 style={{ textDecoration: "underline #639DC3 10px" }}>
             {product[0].title}
@@ -63,7 +114,7 @@ function Productinfo() {
             Order Now
           </button>
         </a>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import Home from '../../pages/Home';
 import axios from "../../api/axios";
 const INVENTORY_URL = "/inventory/";
 
-export let data_list = [];
+
 export default function ItemData() {
     
 const [cookies] = useCookies(['token']);
@@ -57,10 +57,10 @@ useEffect(async  () =>  {
   }
 
 }, []);
-  let product = product_list;
+ const data = Array.from(product_list)
     return(
         <div>
-            <Home Items={product_list}/>
+            <Home Items={data}/>
         </div>
     );
     
