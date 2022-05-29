@@ -1,5 +1,5 @@
 import React from "react";
-import { DUMMY_DATA } from "./Categories";
+import { data_list } from "../components/Home/ItemData";
 import { Link, useParams } from "react-router-dom";
 
 import "../styles/Productinfo.css";
@@ -7,8 +7,9 @@ import "../styles/Productinfo.css";
 import PageNav from "../components/PageNav";
 
 function Productinfo() {
+  console.log(data_list);
   let { id } = useParams();
-  let product = DUMMY_DATA.filter((drug) => drug.id == id);
+  let product = data_list.filter((drug) => drug.id == id);
   return (
     <div className="container mt-3">
       <PageNav />
