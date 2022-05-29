@@ -13,7 +13,7 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents("php://input"));
 
 
-if($request_method == "GET" ){
+if($request_method == "POST" ){
 
     try {
         

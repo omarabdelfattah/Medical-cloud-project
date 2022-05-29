@@ -1,6 +1,6 @@
 import "../App.css";
 import { Hidden } from "@material-ui/core";
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef,ذuseState, useContext } from "react";
 import { useCookies } from 'react-cookie';
 import email from "../assets/pass.png";
 import pass from "../assets/email.jpg";
@@ -12,11 +12,9 @@ const LOGIN_URL = "/accounts/login/";
 // import "./Yarab.css";
 function Login() {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [cookies, setCookie , getCookie] = useCookies(['accessToken', 'name', 'username', 'email', 'phone', 'address']);
-
-
+    const [cookies, setCookie , getCookie] = useCookies(['accessToken', 'name', 'username', 'email', 'phone', 'address']);
 
     const userRef = useRef();
     const errRef  = useRef();
@@ -27,6 +25,7 @@ function Login() {
     const [success, setSuccess] = useState(false);
     const [token, setToken] = useState(false);
   
+
     // check if user is logged in
     useEffect(() => {
       if (cookies.accessToken !== undefined) {

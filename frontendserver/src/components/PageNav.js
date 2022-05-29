@@ -1,4 +1,4 @@
-import React, {useContext } from "react";
+import React, {useContext ,useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../assets/Medical Rep Logo.png";
 import Row from "react-bootstrap/Row";
@@ -6,10 +6,13 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import "../styles/Nav.css";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { NavLink } from "react-router-dom";
+import { NavLink  } from "react-router-dom";
 import { useCookies, Cookies } from 'react-cookie';
+import axios from "../api/axios";
+const CATEGORIES_URL = "/inventory/categories.php";
 
 function PageNav() {
+
 
   const [cookies] = useCookies(['token', 'name', 'username', 'email', 'phone', 'address']);
   const token =  cookies.token;
@@ -18,7 +21,61 @@ function PageNav() {
   const email =  cookies.email;
   const phone =  cookies.phone;
   const address =  cookies.address;
+
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+
+
+
   // console.log("hey "+name+ " your token is "+ token );
+  useEffect(async  () =>  {
+    console.log(token);
+    try {
+      const response = await axios.get(CATEGORIES_URL,
+        {
+          data: {
+            token: token,
+          },
+          headers: { 
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      const status = response?.data?.status;
+      const msg = response?.data?.msg;
+      const categories_list = response?.data?.categories_list;
+      // get categories list from server
+      console.log(response?.data);
+      console.log(status);
+  
+      if (status == 'success') {
+  
+      }else{
+        if(response?.data?.response?.msg){
+          setErrMsg(response?.data?.response?.msg);
+        }else{
+          setErrMsg("error with get categories");
+        }
+      }
+  
+  
+    } catch (err) {
+  
+      
+      if(!err.response){
+        setErrMsg("categories list fetch error or server error");
+      } else {
+        setErrMsg("error with get categories");
+      }
+  
+      console.log(err);
+  
+  
+    }
+  
+  }, []);
+
   return (
     <Navbar className="Nav">
       <div className="container pt-4">

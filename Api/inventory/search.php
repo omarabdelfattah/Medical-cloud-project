@@ -16,7 +16,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 
 
-if($request_method == "GET" ){
+if($request_method == "POST" ){
 
     if(isset($data->name)  ){
     try {
