@@ -17,7 +17,8 @@ $data = json_decode(file_get_contents("php://input"));
 
 if($request_method == "POST" ){
     
-    if(isset($data->username) && isset($data->password)  ){
+    if(isset($data->username) && isset($data->password) &&
+        !empty($data->username) && !empty($data->password)  ){
     
         try {
             $username = $data->username;

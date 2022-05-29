@@ -6,9 +6,9 @@ import conpass from "../assets/conpass.png";
 import profile from "../assets/profile.png";
 import location from "../assets/location.png";
 import register from "../App.css";
-import { NavLink } from "react-router-dom";
+import { useNavigate,NavLink } from "react-router-dom";
 import axios from "../api/axios";
-import { useCookies } from 'react-cookie';
+import {   useCookies } from 'react-cookie';
 const REGISTER_URL = "/accounts/register/";
 
 function Register() {
@@ -27,6 +27,7 @@ function Register() {
   // const handleformsubmit = (event) => {
   //     setErrors(Validation(values));
   // }
+  const navigate = useNavigate();
 
   const [cookies, setCookie] = useCookies();
 
@@ -75,6 +76,7 @@ function Register() {
         const status = response?.data?.status;
         if( status && status === "success") {
           setSuccess(true);
+          navigate("/login");
         }else{
           if(response?.data?.response?.msg){
             setErrMsg(response?.data?.response?.msg);
@@ -107,17 +109,8 @@ function Register() {
     }
 
 
+
   return (
-    <>
-    { success ? (
-      <div>
-        <p className="sucessmsg">You registered sucessfully</p>
-        <br />
-        <p>
-          <a href="#"> Go to Home</a>
-        </p>
-    </div>
-      ) : (
     <div className="main">
       <div className="sub-main">
         <form onSubmit={handleSubmit}>
@@ -215,8 +208,7 @@ function Register() {
         </form>
       </div>
     </div>
-      )}
-      </>
+
   );
 }
 export default Register;

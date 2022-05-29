@@ -5,14 +5,18 @@ import { useCookies } from 'react-cookie';
 import email from "../assets/pass.png";
 import pass from "../assets/email.jpg";
 import logo from "../assets/Logo.png";
-import { NavLink } from "react-router-dom";
+import {useNavigate, NavLink } from "react-router-dom";
 import axios from "../api/axios";
 const LOGIN_URL = "/accounts/login/";
 
 // import "./Yarab.css";
 function Login() {
 
+  const navigate = useNavigate();
+
   const [cookies, setCookie , getCookie] = useCookies(['accessToken', 'name', 'username', 'email', 'phone', 'address']);
+
+
 
     const userRef = useRef();
     const errRef  = useRef();
@@ -21,7 +25,16 @@ function Login() {
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
+    const [token, setToken] = useState(false);
   
+    // check if user is logged in
+    useEffect(() => {
+      if (cookies.accessToken !== undefined) {
+        navigate("/home");
+      }
+    }, []);
+
+
     useEffect(() => {
       userRef.current.focus();
     }, []);
@@ -94,13 +107,7 @@ function Login() {
   return (
     <>
     { success ? (
-      <div>
-        <p className="sucessmsg">You are logged in</p>
-        <br />
-        <p>
-          <a href="#"> Go to Home</a>
-        </p>
-    </div>
+              navigate("/home")
       ) : (
   <div>
     <form onSubmit={handleSubmit}>

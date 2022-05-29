@@ -19,7 +19,10 @@ if($request_method == "POST" ){
     
     if(isset($data->name)     && isset($data->username) &&  
        isset($data->password) && isset($data->email)    && 
-       isset($data->phone)    && isset($data->address) ){
+       isset($data->phone)    && isset($data->address) &&
+       !empty($data->name)     && !empty($data->username) &&  
+       !empty($data->password) && !empty($data->email)    && 
+       !empty($data->phone)    && !empty($data->address) ){
     
         try {
             $name = $data->name;
