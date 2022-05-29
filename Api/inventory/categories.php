@@ -43,13 +43,14 @@ if($request_method == "GET" ){
 
             $categories_data = $products_stmt->fetchAll();
             $categories_list = [];
-            foreach($categories_data as  $product){
+            foreach($categories_data as  $categoty){
 
-                $product = [
-                    'name'      => $product['name'],
+                $categoty = [
+                    'id'      => $categoty['id'],
+                    'name'      => $categoty['name'],
                 ];
 
-                array_push($categories_list,$product);
+                array_push($categories_list,$categoty);
             }
 
 

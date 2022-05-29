@@ -18,9 +18,8 @@ $data = json_decode(file_get_contents("php://input"));
 
 if($request_method == "GET" ){
 
-    if(isset($data->id)  ){
+    if(isset($data->cat_id)  ){
     try {
-
 
         if(isset($data->token)){
             if(check_token($conn_accounts,$data->token) == false){
@@ -40,30 +39,37 @@ if($request_method == "GET" ){
             return;
         }
 
-        $id=$data->id;
-        $products = "SELECT * FROM `products` where `id` = :id ";
-        
+
+        $cat_id=$data->cat_id;
+        $products = "SELECT * FROM `products` where `cat_id` = :cat_id ";
         $products_stmt = $conn_inventory->prepare($products);
-        $products_stmt->bindValue(':id',$id, PDO::PARAM_STR);
+        $products_stmt->bindValue(':cat_id',$cat_id, PDO::PARAM_STR);
         $products_stmt->execute();
         
 
         if ($products_stmt->rowCount()){
 
-            $product_data = $products_stmt->fetch();
-            $product_data = [
-                'name'      => $product_data['name'],
-                'price'  => $product_data['price'],
-                'desc'     => $product_data['description'],
-                'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']."uploads/".$product_data['img'],
-                'count'   => $product_data['count'],
-                'cat_id'   =>    get_category($conn_inventory,$product_data['cat_id']),
-            ];
+            $product_data = $products_stmt->fetchAll();
+            $product_list = [];
+            foreach($product_data as  $product){
+
+                $product = [
+                    'name'      => $product['name'],
+                    'price'  => $product['price'],
+                    'desc'     => $product['description'],
+                    'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] ."/uploads/".$product['img'],
+                    'count'   => $product['count'],
+                    'category'   => get_category($conn_inventory,$product['cat_id']),
+                ];
+
+                array_push($product_list,$product);
+            }
+
 
             $data = [
                 "status"    => "success",
-                "msg"       => 'product found',
-                "product_info" => $product_data
+                "msg"       => 'data is  received',
+                "product_list" => $product_list
             ];
 
         }else{
@@ -80,7 +86,7 @@ if($request_method == "GET" ){
     }else{
         $data = [
             "status" => "error",
-            "msg"    => "id is required"
+            "msg"    => "cat_id is required"
         ];
     }
     echo json_encode($data);

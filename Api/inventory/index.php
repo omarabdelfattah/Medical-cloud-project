@@ -50,8 +50,8 @@ if($request_method == "GET" ){
                     'price'  => $product['price'],
                     'desc'     => $product['description'],
                     'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] ."/uploads/".$product['img'],
-                    'count'   =>    get_category($conn_inventory,$product['cat_id']),
-                    'category'   => $product['count'],
+                    'count'   =>   $product['count'] ,
+                    'category'   => get_category($conn_inventory,$product['cat_id']) ,
                 ];
 
                 array_push($product_list,$product);
@@ -67,19 +67,12 @@ if($request_method == "GET" ){
         }else{
             $data = [
                 "status" => "error",
-                "msg"    => 'username or password is wrong'
+                "msg"    => 'No data found'
             ];
         }
     } catch (PDOException $e) {
         $data = $e->getMessage();
     }
-
-
-
-
-
-
-    
 
 
     echo json_encode($data);
