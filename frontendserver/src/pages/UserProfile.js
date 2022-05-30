@@ -20,6 +20,7 @@ function UserProfile() {
         document.getElementById('ele2').style.fontWeight='normal';
     }
 
+    
 
     var uname='Full Name', umail='....@gmail.com', uphone='0123456789', uloc='Alexandria, Egypt';
     return(
