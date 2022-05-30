@@ -72,6 +72,7 @@ if($request_method == "POST" ){
             $data = [
                 "status"    => "success",
                 "msg"       => 'data is  received',
+                "cat_name"       => get_category($conn_inventory,$cat_id)['cat_name'],
                 "product_list" => $product_list
             ];
 

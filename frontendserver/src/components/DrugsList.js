@@ -4,7 +4,6 @@ import classes from './DrugsList.module.css'
 function DrugsList(props) {
     return (
         <div>
-           
            <ul className={classes.list}>
             {props.drugs.map((drug, i) => (
                 <DrugsItem

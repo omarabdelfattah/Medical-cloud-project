@@ -76,15 +76,19 @@ function Search() {
   
   }, [location]);
   const data = Array.from(products_list)
-  console.log(data);
-  return (
+
+  return data.length > 0 ? (
     <section className="fok">
       <PageNav />
 
-      <h1 className="Search">CARDIOVASCULAR SYSTEM</h1>
       <DrugsList drugs={data} />
     </section>
-  );
+  ) :(
+    <section className="fok">
+    <PageNav />
+    <center>No data found</center> 
+    </section>
+  ) 
 }
 
 export default Search;

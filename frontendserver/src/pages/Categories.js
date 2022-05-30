@@ -21,6 +21,7 @@ function Categories() {
 
   const [cookies] = useCookies(['token']);
   const [products_list, setProductsList] = useState("");
+  const [category_name, setCategoryName] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -28,7 +29,7 @@ function Categories() {
 
 
   useEffect(async ()  => {
-    console.log(  cookies.token)
+    // console.log(  cookies.token)
     setToken(cookies.token);
   }, []);
 
@@ -48,12 +49,14 @@ function Categories() {
       const status = response?.data?.status;
       const msg = response?.data?.msg;
       const products_list = response?.data?.product_list;
+      const cat_name = response?.data?.cat_name;
       // get categories list from server
   
       if (status == 'success') {
 
         setProductsList(products_list);
-        console.log(products_list);
+        setCategoryName(cat_name)
+        // console.log(products_list);
 
       }else{
         if(response?.data?.response?.msg){
@@ -76,12 +79,12 @@ function Categories() {
   
   }, []);
   const data = Array.from(products_list)
-  console.log(data);
+
   return (
     <section className="fok">
       <PageNav />
 
-      <h1 className="Categories">CARDIOVASCULAR SYSTEM</h1>
+      <h1 className="Categories">{category_name}</h1>
       <DrugsList drugs={data} />
     </section>
   );
