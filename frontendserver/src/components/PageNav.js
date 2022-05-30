@@ -10,7 +10,7 @@ import { NavLink, useNavigate  } from "react-router-dom";
 
 import { redirect  } from 'react-router';
 import { useCookies } from 'react-cookie';
-
+ 
 import axios from "../api/axios";
 const CATEGORIES_URL = "/inventory/categories.php";
 
@@ -122,7 +122,7 @@ function PageNav() {
               style={{ width: "300%", marginLeft: "50px" }}
             >
               <div className="row">
-                <div className="col-6">
+                <div className="col-12">
                     {
                       Object.entries(categories_list).map(([key, category], i )  => { 
                         // console.log(category);

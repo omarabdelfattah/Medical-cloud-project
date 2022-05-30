@@ -11,14 +11,38 @@ const PRODUCT_INFO_URL = "/inventory/detailproduct.php";
 
 function Productinfo() {
   let { id } = useParams();
-  const { addItem } = useCart();
+  const { addItem,setItems } = useCart();
 
+  const products = [
+    {
+      id: "ckb64v21u000001ksgw2s42ku",
+      name: "Fresh Foam 1080v9",
+      brand: "New Balance",
+      color: "Neon Emerald with Dark Neptune",
+      size: "US 10",
+      width: "B - Standard",
+      sku: "W1080LN9",
+      price: 15000,
+    },
+    {
+      id: "cjld2cjxh0000qzrmn831i7rn",
+      name: "Fresh Foam 1080v9",
+      brand: "New Balance",
+      color: "Neon Emerald with Dark Neptune",
+      size: "US 9",
+      width: "B - Standard",
+      sku: "W1080LN9",
+      price: 15000,
+    },
+  ];
+  
+  setItems(products);
   const [cookies] = useCookies(['token']);
-const token =  cookies.token;
-const [product_info, setproductInfo] = useState("");
-const [errMsg, setErrMsg] = useState("");
+  const token =  cookies.token;
+  const [product_info, setproductInfo] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
-// console.log("hey "+name+ " your token is "+ token );
+  // console.log("hey "+name+ " your token is "+ token );
 
 useEffect(async  () =>  {
 
