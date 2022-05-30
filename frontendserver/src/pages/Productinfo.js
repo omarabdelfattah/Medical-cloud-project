@@ -6,15 +6,22 @@ import "../styles/Productinfo.css";
 
 import PageNav from "../components/PageNav";
 import axios from "../api/axios";
+import Swal from 'sweetalert2'
 const PRODUCT_INFO_URL = "/inventory/detailproduct.php";
+const ADD_TO_CART_URL = "/accounts/cart/create.php";
 
 function Productinfo() {
   let { id } = useParams();
 
+  const Swal = require('sweetalert2')
+
+
   const [cookies] = useCookies(['token']);
   const token =  cookies.token;
+
   const [product_info, setproductInfo] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
 
   // console.log("hey "+name+ " your token is "+ token );
 
@@ -64,9 +71,59 @@ useEffect(async  () =>  {
 }, []);
 
   // handle add to cart
-  const handleAddToCart = () => {
+  const handleAddToCart = async ()  => {
 
-    localStorage.setItem("product_cart"+product_info.id, JSON.stringify(product_info));
+    try {
+      const response = await axios.post(ADD_TO_CART_URL,
+        JSON.stringify({
+              token:token, 
+              products:
+                [{
+                   product_id:id,
+                 count:1,
+                }
+                ]
+            }),
+        {
+          headers: { 
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      const status = response?.data?.status;
+      const msg = response?.data?.msg;
+      // get product list from server
+  
+      if (status == 'success') {
+  
+        setSuccess(true);
+
+        Swal.fire({
+          title: 'Success!',
+          text: 'Product added to cart',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        })
+  
+      }else{
+        if(response?.data?.response?.msg){
+          setErrMsg(response?.data?.response?.msg);
+        }else{
+          setErrMsg("error with adding to cart");
+        }
+      }
+  
+  
+    } catch (err) {
+  
+      if(!err.response){
+        setErrMsg("adding to list error or server error");
+      } else {
+        setErrMsg("error with adding to cart");
+      }
+  
+    }
 
   };
   

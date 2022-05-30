@@ -23,6 +23,7 @@
     "redirect": "^0.2.0",
     "remixicon-react": "^1.0.0",
     "save-dev": "0.0.1-security",
+    "sweetalert2": "^11.4.17",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
