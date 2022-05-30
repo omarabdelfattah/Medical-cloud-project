@@ -14,16 +14,17 @@ export default function Home(props) {
           className="text-start mt-3"
           style={{ textDecoration: "underline #639DC3 10px" }}
         >
-          New Rlease
+          New Release
         </h1>
         <div className="row justify-content-between  pb-5">
-          {props.Items.map((Data) => (
+          {props.Items.slice(0,9).map((Data,key) => (
             <ItemDataFram
-              image={Data.image}
-              About={Data.About}
-              Name={Data.Name}
+              image={Data.img}
+              About={Data.id}
+              Name={Data.name}
+              price={Data.price}
               id={Data.id}
-              key={Data.id}
+              key={key}
             />
           ))}
         </div>

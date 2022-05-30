@@ -54,11 +54,13 @@ if($request_method == "POST" ){
             foreach($product_data as  $product){
 
                 $product = [
+                    'id'      => $product['id'],
                     'name'      => $product['name'],
                     'price'  => $product['price'],
                     'desc'     => $product['description'],
                     'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] ."/uploads/".$product['img'],
                     'count'   =>    $product['count'],
+                    'rating'   =>    $product['rating'],
                     'category'   =>get_category($conn_inventory,$product['cat_id']) ,
                 ];
 
