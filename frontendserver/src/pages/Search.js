@@ -13,12 +13,12 @@ import PageNav from "../components/PageNav";
 import { Link, useParams } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import axios from "../api/axios";
-const PRODUCTS_URL = "/inventory/product_by_category.php";
+import { useLocation } from 'react-router-dom'
+const PRODUCTS_URL = "/inventory/search.php";
 
-
-function Categories() {
-  let { id } = useParams();
-
+function Search() {
+  let { key } = useParams();
+  const location = useLocation();
   const [cookies] = useCookies(['token']);
   const [products_list, setProductsList] = useState("");
 
@@ -34,10 +34,10 @@ function Categories() {
 
   // console.log("hey "+name+ " your token is "+ token );
   useEffect(async  () =>  {
-   
+   console.log('run');
     try {
       const response = await axios.post(PRODUCTS_URL,
-        JSON.stringify({token:cookies.token , cat_id:id }),
+        JSON.stringify({token:cookies.token , name:key }),
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ function Categories() {
       const status = response?.data?.status;
       const msg = response?.data?.msg;
       const products_list = response?.data?.product_list;
-      // get categories list from server
+      // get Search list from server
   
       if (status == 'success') {
 
@@ -59,7 +59,7 @@ function Categories() {
         if(response?.data?.response?.msg){
           setErrMsg(response?.data?.response?.msg);
         }else{
-          setErrMsg("error with get categories");
+          setErrMsg("error with get Search");
         }
       }
   
@@ -67,24 +67,24 @@ function Categories() {
     } catch (err) {
 
       if(!err.response){
-        setErrMsg("categories list fetch error or server error");
+        setErrMsg("Search list fetch error or server error");
       } else {
-        setErrMsg("error with get categories");
+        setErrMsg("error with get Search");
       }
   
     }
   
-  }, []);
+  }, [location]);
   const data = Array.from(products_list)
   console.log(data);
   return (
     <section className="fok">
       <PageNav />
 
-      <h1 className="Categories">CARDIOVASCULAR SYSTEM</h1>
+      <h1 className="Search">CARDIOVASCULAR SYSTEM</h1>
       <DrugsList drugs={data} />
     </section>
   );
 }
 
-export default Categories;
+export default Search;

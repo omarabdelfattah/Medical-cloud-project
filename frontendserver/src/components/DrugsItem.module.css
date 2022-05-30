@@ -3,14 +3,14 @@
   }
   
   .image {
-    width: 35%;
+    width: 64%;
     height: 20rem;
+
     }
   
   .image img {
-    margin: 20px;
-    width: 70%;
-    object-fit: cover;
+    max-width: 50%;
+    max-height: 60%;
   }
   
   .content {

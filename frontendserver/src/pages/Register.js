@@ -116,8 +116,12 @@ function Register() {
 
 
     return (
-    token || success ? (
-        window.location = "/home"
+      ( token != "undefined" && token) || success ? (
+        <div>
+          <script >
+            {window.location = "/home"}
+          </script>
+        </div>
         ) : (
     <div className="main">
       <div className="sub-main">

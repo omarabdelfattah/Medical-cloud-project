@@ -6,14 +6,14 @@ function DrugsList(props) {
         <div>
            
            <ul className={classes.list}>
-            {props.drugs.map((drug) => (
+            {props.drugs.map((drug, i) => (
                 <DrugsItem
+                key={i}
                 id={drug.id}
-                image={drug.image}
-                title={drug.title}
+                image={drug.img}
+                title={drug.name}
                 price={drug.price}
-                categories={drug.categories}
-                company={drug.company}
+                categories={drug.category}
                 />
             ))}
 

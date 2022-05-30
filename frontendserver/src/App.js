@@ -6,6 +6,7 @@ import Contact from "./pages/Contact";
 import ItemData from "./components/Home/ItemData";
 import OrderNow from "./pages/OrderNow";
 import Categories from "./pages/Categories";
+import Search from "./pages/Search";
 import Productinfo from "./pages/Productinfo";
 import About from "./pages/About";
 import PageNav from "./components/PageNav";
@@ -22,7 +23,8 @@ function App() {
         <Route path="/Order/:id" element={<OrderNow />}></Route>
         <Route path="Categories/drug/:id" element={<Productinfo />}></Route>
         <Route path="/home" element={<ItemData />}></Route>
-        <Route path="/Categories" element={<Categories />}></Route>
+        <Route path="/Categories/:id" element={<Categories />}></Route>
+        <Route path="/Search/:key" element={<Search />}></Route>
         <Route path="/About" element={<About />}></Route>
         <Route path="/Contact" element={<Contact />}></Route>
         <Route path="/" element={<Register />} />

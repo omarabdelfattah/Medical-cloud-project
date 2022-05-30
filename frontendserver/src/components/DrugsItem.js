@@ -11,10 +11,8 @@ function DrugsItem(props) {
         </div>
         <div className={classes.content}>
           <h3>{props.title}</h3>
-          <p>{props.price}</p>
-          <p>{props.categories}</p>
-          <p>{props.company}</p>
-          <a href={"Categories/drug/"+props.id}><button className='btn btn-lg btn-primary' style={{backgroundColor:"#0E3E9E"}}>View More</button></a>
+          <p>{props.price} L.E</p>
+          <a href={'/Categories/drug/'+props.id}><button className='btn btn-lg btn-primary' style={{backgroundColor:"#0E3E9E"}}>View More</button></a>
         </div>
         <div>
           

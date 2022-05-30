@@ -12,7 +12,7 @@ import PageNav from "../components/PageNav";
 
 function OrderNow() {
   let { id } = useParams();
-  let product = DUMMY_DATA.filter((drug) => drug.id == id);
+  let product = {id:2}.filter((drug) => drug.id == id);
   //change city select menu options
   const [selected, setselected] = useState();
   function changeoptions(event) {

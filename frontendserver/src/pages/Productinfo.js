@@ -92,13 +92,13 @@ useEffect(async  () =>  {
           <img src={product_info.img} className="drug" style={{ width: "90%" }} />
         </div>
       </div>
-      <div className="row">
+      <div className="row text-center">
         <a href={"/Order/" + id} className="m-3" style={{ float: "right" }}>
           <button
             className="btn btn-lg btn-primary"
             style={{ backgroundColor: "#0E3E9E" }}
           >
-            Order Now
+            Add to cart
           </button>
         </a>
       </div>

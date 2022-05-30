@@ -6,15 +6,18 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import "../styles/Nav.css";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { NavLink  } from "react-router-dom";
+import { NavLink, useNavigate  } from "react-router-dom";
+
 import { redirect  } from 'react-router';
 import { useCookies } from 'react-cookie';
+
 import axios from "../api/axios";
 const CATEGORIES_URL = "/inventory/categories.php";
 
 function PageNav() {
 
 
+  const Navigate = useNavigate();
 
   const [cookies] = useCookies(['token', 'name', 'username', 'email', 'phone', 'address']);
   const name =  cookies.name;
@@ -27,18 +30,31 @@ function PageNav() {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [token, setToken] = useState(false);
-
+  const [search, setSearch] = useState("");
 
   useEffect(async ()  => {
+    console.log(  cookies.token)
     setToken(cookies.token);
   }, []);
 
+
+  
+    const handleChange = event => {
+      setSearch(event.target.value);
+    }
+
+    const handleGoSearch = e => {
+      if(search.length > 0){
+        Navigate('/search/'+search);
+      }
+    }
+
+
   // console.log("hey "+name+ " your token is "+ token );
-  useEffect(async  () =>  {
-   
+  useEffect(async () => {
     try {
       const response = await axios.post(CATEGORIES_URL,
-        JSON.stringify({token:token}),
+        JSON.stringify({token:cookies.token}),
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -74,10 +90,9 @@ function PageNav() {
       }
   
     }
-  
   }, []);
 
-  return token !== undefined ?  (
+  return token !== undefined && token !== "undefined" ?  (
     <Navbar className="Nav">
       <div className="container pt-4">
         <Row>
@@ -108,7 +123,7 @@ function PageNav() {
                       Object.entries(categories_list).map(([key, category], i )  => { 
                         // console.log(category);
                         return (
-                        <NavDropdown.Item className="dropItem">
+                        <NavDropdown.Item className="dropItem" key={i}>
                         <Link
                           to={"/Categories/"+category.id}
                           style={{ textDecoration: "none", color: "black" }}
@@ -151,14 +166,23 @@ function PageNav() {
             >
             </NavLink>
           </Col>
-          <Col style={{marginTop:"1%",marginLeft:"20px"}}>
+          <Col style={{marginTop:"1%"}}>
             <NavLink activeclassname="active" to="/profile" className='links' style={{textDecoration:"none"}}>Profile</NavLink>
           </Col>
-
+          <Col className="text-center my-4" style={{marginTop:"1%",marginLeft:"20px"}}>
+            <input className="search" value={search} onChange={handleChange} type="search" placeholder="Search" aria-label="Search" />
+            <button
+                  className="btn btn-lg btn-primary col-2.5 search mx-2"
+                  style={{ backgroundColor: "#0E3E9E" }}
+                  onClick={handleGoSearch}
+                >
+                  Search
+                </button>
+        </Col>
         </Row>
       </div>
     </Navbar>
-  ) : window.location = "/login";
+  ) :<div><script > {window.location = "/login"} </script></div>;
   
 }
 

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageNav from '../components/PageNav';
 import Footer from '../components/Footer';
 import floxamo from '../images/floxamo.png'
 import nexicure from '../images/nexture.png'
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import OrderedCards from '../components/OrderedCards';
+import { useCookies,cookies ,removeCookie} from 'react-cookie';
+
 
 function UserProfile() {
     function showOrders(){
@@ -20,9 +22,22 @@ function UserProfile() {
         document.getElementById('ele2').style.fontWeight='normal';
     }
 
-    
 
-    var uname='Full Name', umail='....@gmail.com', uphone='0123456789', uloc='Alexandria, Egypt';
+ 
+     const [cookies,removeCookie] = useCookies(['token', 'name', 'username', 'email', 'phone', 'address']);
+    const name =  cookies.name;
+    const username =  cookies.username;
+    const email =  cookies.email;
+    const phone =  cookies.phone;
+    const address =  cookies.address;
+
+    var uname=name, umail=email, uphone=phone, uloc=address;
+
+    const handleSignout = async (e) => {
+        removeCookie('token');
+        window.location = "/home"
+    }
+        
     return(
         <div>
             <PageNav/>
@@ -31,7 +46,7 @@ function UserProfile() {
                     <h2>{uname}</h2>
                     <h3>{uloc}</h3>
                 </div>
-                <button style={{paddingRight:'1%', paddingLeft:'1%', margin:'8%', marginLeft:'30%', marginBottom:'5%'}}>Sign Out</button>
+                <button style={{paddingRight:'1%', paddingLeft:'1%', margin:'8%', marginLeft:'30%', marginBottom:'5%'}} onClick={handleSignout} >Sign Out</button>
             </div>
             <div style={{display:'flex'}}>
                 <Container style={{border: '1px solid #000000',margin:'5%', width:'25%', height:'25%'}}>

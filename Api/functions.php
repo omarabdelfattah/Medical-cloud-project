@@ -72,7 +72,10 @@ function get_category($conn,$cat_id){
         # get the data
         $cat_data = $stmt->fetch();
         # return the data
-        return $cat_data['id'];
+        return [
+            'cat_name' => $cat_data['name'],
+            'cat_id'   => $cat_data['id']
+        ];
     }else{
         return false;
     }

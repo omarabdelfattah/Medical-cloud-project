@@ -61,7 +61,8 @@ if($request_method == "POST" ){
                     'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] ."/uploads/".$product['img'],
                     'count'   =>    $product['count'],
                     'rating'   =>    $product['rating'],
-                    'category'   =>get_category($conn_inventory,$product['cat_id']) ,
+                    'cat_name'   =>    get_category($conn_inventory,$product['cat_id'])['cat_name'],
+                    'category'   =>    get_category($conn_inventory,$product['cat_id'])['cat_id'],                 
                 ];
 
                 array_push($product_list,$product);

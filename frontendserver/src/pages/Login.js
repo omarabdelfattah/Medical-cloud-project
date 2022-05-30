@@ -103,8 +103,12 @@ function Login() {
       console.log(token);
   return (
     <>
-    { token || success  ? (
-              window.location = "/home"
+    { ( token != "undefined" && token) || success  ? (
+        <div>
+        <script >
+          {window.location = "/home"}
+        </script>
+      </div>      
       ) : (
   <div>
     <form onSubmit={handleSubmit}>
