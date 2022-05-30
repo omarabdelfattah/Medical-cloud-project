@@ -49,10 +49,15 @@ input {
 }
 input.search{
   font-size: small;
+  width: 78%;
+  height: 47px;
+  margin: 0;
 }
 button.search{
-    width: 8%;
-    height: 49px;
+  width: 56px;
+  height: 46px;
+  font-size: small;
+  padding: 4px;
 }
 .inputs {
   height: 25px;

@@ -94,8 +94,12 @@ function PageNav() {
 
   return token !== undefined && token !== "undefined" ?  (
     <Navbar className="Nav">
-      <div className="container pt-4">
+      <div className="container pt-4 ">
+        <Row style={{     minWidth: "100%" }}>
+        <Col className="col-md-12">
+
         <Row>
+
           <Col>
             <NavLink to="/home">
               <img src={logo} width="80rem"></img>
@@ -158,18 +162,12 @@ function PageNav() {
               Contact
             </NavLink>
           </Col>
-          <Col style={{ marginTop: "1%", marginLeft: "20px" }}>
-            <NavLink
-              to="/Contact"
-              className="active links"
-              style={{ textDecoration: "none" }}
-            >
-            </NavLink>
-          </Col>
           <Col style={{marginTop:"1%"}}>
             <NavLink activeclassname="active" to="/profile" className='links' style={{textDecoration:"none"}}>Profile</NavLink>
           </Col>
-          <Col className="text-center my-4" style={{marginTop:"1%",marginLeft:"20px"}}>
+          </Row>
+        </Col>
+          <Col className="text-center mx-auto col-md-4 my-3" style={{marginTop:"1%"}}>
             <input className="search" value={search} onChange={handleChange} type="search" placeholder="Search" aria-label="Search" />
             <button
                   className="btn btn-lg btn-primary col-2.5 search mx-2"
@@ -178,7 +176,7 @@ function PageNav() {
                 >
                   Search
                 </button>
-        </Col>
+                </Col>
         </Row>
       </div>
     </Navbar>

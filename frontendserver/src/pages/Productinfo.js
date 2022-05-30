@@ -6,10 +6,12 @@ import "../styles/Productinfo.css";
 
 import PageNav from "../components/PageNav";
 import axios from "../api/axios";
+import { useCart , addItem} from "react-use-cart";
 const PRODUCT_INFO_URL = "/inventory/detailproduct.php";
 
 function Productinfo() {
   let { id } = useParams();
+  const { addItem } = useCart();
 
   const [cookies] = useCookies(['token']);
 const token =  cookies.token;
@@ -63,7 +65,11 @@ useEffect(async  () =>  {
 
 }, []);
 
-
+  // handle add to cart
+  const handleAddToCart = (product) => {
+    addItem(product_info);
+  };
+  
   
   return (
     <div>
@@ -93,10 +99,11 @@ useEffect(async  () =>  {
         </div>
       </div>
       <div className="row text-center">
-        <a href={"/Order/" + id} className="m-3" style={{ float: "right" }}>
+        <a  className="m-3" style={{ float: "right" }}>
           <button
             className="btn btn-lg btn-primary"
             style={{ backgroundColor: "#0E3E9E" }}
+            onClick={handleAddToCart}
           >
             Add to cart
           </button>
