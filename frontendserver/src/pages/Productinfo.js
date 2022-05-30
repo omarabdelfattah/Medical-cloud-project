@@ -6,37 +6,11 @@ import "../styles/Productinfo.css";
 
 import PageNav from "../components/PageNav";
 import axios from "../api/axios";
-import { useCart , addItem} from "react-use-cart";
 const PRODUCT_INFO_URL = "/inventory/detailproduct.php";
 
 function Productinfo() {
   let { id } = useParams();
-  const { addItem,setItems } = useCart();
 
-  const products = [
-    {
-      id: "ckb64v21u000001ksgw2s42ku",
-      name: "Fresh Foam 1080v9",
-      brand: "New Balance",
-      color: "Neon Emerald with Dark Neptune",
-      size: "US 10",
-      width: "B - Standard",
-      sku: "W1080LN9",
-      price: 15000,
-    },
-    {
-      id: "cjld2cjxh0000qzrmn831i7rn",
-      name: "Fresh Foam 1080v9",
-      brand: "New Balance",
-      color: "Neon Emerald with Dark Neptune",
-      size: "US 9",
-      width: "B - Standard",
-      sku: "W1080LN9",
-      price: 15000,
-    },
-  ];
-  
-  setItems(products);
   const [cookies] = useCookies(['token']);
   const token =  cookies.token;
   const [product_info, setproductInfo] = useState("");
@@ -91,7 +65,6 @@ useEffect(async  () =>  {
 
   // handle add to cart
   const handleAddToCart = (product) => {
-    addItem(product_info);
   };
   
   
