@@ -30,8 +30,9 @@ function About() {
   // }
 
   return (
+    <div>
+    <PageNav />
     <Container style={{ width: "3000px" }}>
-      <PageNav />
       <Container>
         <Row>
           <Col>
@@ -76,7 +77,8 @@ function About() {
         </Row>
       </Container>
     </Container>
-  );
+    </div>
+     );
 }
 
 export default About;

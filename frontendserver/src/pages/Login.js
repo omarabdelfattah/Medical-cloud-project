@@ -27,10 +27,8 @@ function Login() {
   
 
     // check if user is logged in
-    useEffect(() => {
-      if (cookies.accessToken !== undefined) {
-        navigate("/home");
-      }
+    useEffect(async ()  => {
+      setToken(cookies.token);
     }, []);
 
 
@@ -102,11 +100,11 @@ function Login() {
 
     }
 
-      
+      console.log(token);
   return (
     <>
-    { success ? (
-              navigate("/home")
+    { token || success  ? (
+              window.location = "/home"
       ) : (
   <div>
     <form onSubmit={handleSubmit}>

@@ -7,15 +7,16 @@ import { Link } from "react-router-dom";
 import "../styles/Nav.css";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink  } from "react-router-dom";
-import { useCookies, Cookies } from 'react-cookie';
+import { redirect  } from 'react-router';
+import { useCookies } from 'react-cookie';
 import axios from "../api/axios";
 const CATEGORIES_URL = "/inventory/categories.php";
 
 function PageNav() {
 
 
+
   const [cookies] = useCookies(['token', 'name', 'username', 'email', 'phone', 'address']);
-  const token =  cookies.token;
   const name =  cookies.name;
   const username =  cookies.username;
   const email =  cookies.email;
@@ -25,12 +26,16 @@ function PageNav() {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [token, setToken] = useState(false);
 
 
+  useEffect(async ()  => {
+    setToken(cookies.token);
+  }, []);
 
   // console.log("hey "+name+ " your token is "+ token );
   useEffect(async  () =>  {
-    // console.log(token);
+   
     try {
       const response = await axios.post(CATEGORIES_URL,
         JSON.stringify({token:token}),
@@ -72,7 +77,7 @@ function PageNav() {
   
   }, []);
 
-  return (
+  return token !== undefined ?  (
     <Navbar className="Nav">
       <div className="container pt-4">
         <Row>
@@ -153,7 +158,8 @@ function PageNav() {
         </Row>
       </div>
     </Navbar>
-  );
+  ) : window.location = "/login";
+  
 }
 
-export default PageNav;
+export default  PageNav ;

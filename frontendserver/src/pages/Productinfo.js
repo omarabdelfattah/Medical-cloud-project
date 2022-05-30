@@ -66,9 +66,9 @@ useEffect(async  () =>  {
 
   
   return (
+    <div>
+    <PageNav />
     <div className="container mt-3">
-      <PageNav />
-
       <div className="row">
         <div className="col-8">
           <h1 style={{ textDecoration: "underline #639DC3 10px" }}>
@@ -102,6 +102,7 @@ useEffect(async  () =>  {
           </button>
         </a>
       </div>
+    </div>
     </div>
   );
 }

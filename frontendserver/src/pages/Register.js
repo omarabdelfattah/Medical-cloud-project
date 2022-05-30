@@ -29,7 +29,7 @@ function Register() {
   // }
   const navigate = useNavigate();
 
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies(['token']);
 
     const userRef = useRef();
     const errRef  = useRef();
@@ -43,7 +43,12 @@ function Register() {
 
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
-  
+    const [token, setToken] = useState(false);
+
+    useEffect(async ()  => {
+      setToken(cookies.token);
+    }, []);
+
     useEffect(() => {
       userRef.current.focus();
     }, []);
@@ -110,7 +115,10 @@ function Register() {
 
 
 
-  return (
+    return (
+    token || success ? (
+        window.location = "/home"
+        ) : (
     <div className="main">
       <div className="sub-main">
         <form onSubmit={handleSubmit}>
@@ -208,7 +216,8 @@ function Register() {
         </form>
       </div>
     </div>
-
-  );
+    )
+);
 }
-export default Register;
+
+export default Register ;
