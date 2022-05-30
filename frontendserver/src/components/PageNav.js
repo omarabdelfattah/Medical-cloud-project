@@ -165,6 +165,9 @@ function PageNav() {
           <Col style={{marginTop:"1%"}}>
             <NavLink activeclassname="active" to="/profile" className='links' style={{textDecoration:"none"}}>Profile</NavLink>
           </Col>
+          <Col style={{marginTop:"1%"}}>
+            <NavLink activeclassname="active" to="/cart" className='links' style={{textDecoration:"none"}}>Cart</NavLink>
+          </Col>
           </Row>
         </Col>
           <Col className="text-center mx-auto col-md-4 my-3" style={{marginTop:"1%"}}>

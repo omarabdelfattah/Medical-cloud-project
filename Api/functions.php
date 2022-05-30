@@ -81,5 +81,37 @@ function get_category($conn,$cat_id){
     }
 }
 
+function get_product($conn,$product_id){ 
+
+    $products = "SELECT * FROM `products` where `id` = :id ";
+    
+    $products_stmt = $conn->prepare($products);
+    $products_stmt->bindValue(':id',$product_id, PDO::PARAM_STR);
+    $products_stmt->execute();
+    
+
+    if ($products_stmt->rowCount()){
+
+        $product_data = $products_stmt->fetch();
+        $product_data = [
+            'id'      => $product_data['id'],
+            'name'      => $product_data['name'],
+            'price'  => $product_data['price'],
+            'desc'     => $product_data['description'],
+            'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] ."/uploads/".$product_data['img'],
+            'count'   => $product_data['count'],
+            'rating'   => $product_data['rating'],
+            'cat_name'   =>    get_category($conn,$product_data['cat_id'])['cat_name'],
+            'category'   =>    get_category($conn,$product_data['cat_id'])['cat_id'],        
+        ];
+
+        return $product_data;
+    
+
+    }else{
+        return false;
+    }
+}
+
 
 ?>

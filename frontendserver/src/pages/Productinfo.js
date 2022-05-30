@@ -64,7 +64,10 @@ useEffect(async  () =>  {
 }, []);
 
   // handle add to cart
-  const handleAddToCart = (product) => {
+  const handleAddToCart = () => {
+
+    localStorage.setItem("product_cart"+product_info.id, JSON.stringify(product_info));
+
   };
   
   
