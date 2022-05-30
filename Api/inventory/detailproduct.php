@@ -56,7 +56,7 @@ if($request_method == "POST" ){
                 'name'      => $product_data['name'],
                 'price'  => $product_data['price'],
                 'desc'     => $product_data['description'],
-                'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']."/uploads/".$product_data['img'],
+                'img'     => isset($_SERVER['HTTPS']) ? 'https://' : 'http://' .  $_SERVER['HTTP_HOST'] ."/uploads/".$product_data['img'],
                 'count'   => $product_data['count'],
                 'rating'   => $product_data['rating'],
                 'cat_id'   =>    get_category($conn_inventory,$product_data['cat_id']),
