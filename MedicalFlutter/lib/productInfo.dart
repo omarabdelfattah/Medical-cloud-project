@@ -8,9 +8,11 @@ import 'about.dart';
 import 'list.dart';
 
 class productInfo extends StatefulWidget {
-  final Med meds;
+  final List<dynamic> meds;
+  final int index;
 
-  const productInfo({Key? key, required this.meds}) : super(key: key);
+  const productInfo({Key? key, required this.meds, required this.index})
+      : super(key: key);
 
   @override
   State<productInfo> createState() => _productInfoState();
@@ -20,6 +22,14 @@ class _productInfoState extends State<productInfo> {
   int currentTab = 0;
   @override
   Widget build(BuildContext context) {
+    String name = widget.meds[widget.index]["name"];
+    String price = widget.meds[widget.index]["price"];
+    // int id = widget.meds[widget.index]["id"];
+
+    // print(id);
+    // String rating = widget.meds[widget.index]["rating"];
+    // print(rating);
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -28,8 +38,14 @@ class _productInfoState extends State<productInfo> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: const Icon(Icons.arrow_back_ios, color: Colors.black,)),
-          title: Text('${widget.meds.name}', style: TextStyle(color: Colors.black, fontSize: 25),),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
+          title: Text(
+            name,
+            style: TextStyle(color: Colors.black, fontSize: 25),
+          ),
           centerTitle: true,
         ),
         body: ListView(children: [
@@ -64,7 +80,7 @@ class _productInfoState extends State<productInfo> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          widget.meds.rating,
+                                          "",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
@@ -109,7 +125,7 @@ class _productInfoState extends State<productInfo> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(85, 0, 0, 0),
                       child: Image(
-                        image: AssetImage(widget.meds.img),
+                        image: NetworkImage(widget.meds[widget.index]["img"]),
                         width: 210,
                       ),
                     ),
@@ -128,7 +144,7 @@ class _productInfoState extends State<productInfo> {
                     style: TextStyle(fontSize: 25),
                     children: <TextSpan>[
                       TextSpan(
-                          text: '${widget.meds.price}  ',
+                          text: price,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 25)),
                     ],
@@ -176,23 +192,26 @@ class _productInfoState extends State<productInfo> {
               child: ElevatedButton(
                 child: Text("Add To Cart"),
                 onPressed: () {
-                  addElement(cartItems(med: widget.meds, num: 1, id: widget.meds.id));
-                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //   content: Container(
-                  //     padding: EdgeInsets.all(16),
-                  //     decoration: BoxDecoration(
-                  //       color: Color(0xffb0bec5),
-                  //       borderRadius: BorderRadius.all(Radius.circular(18))
-                  //     ),
-                  //     height: 60,
-                  //
-                  //       child: Text("Product Add to Cart Succssefully :)",
-                  //         style:TextStyle(color: Colors.black) ,)),
-                  //   behavior: SnackBarBehavior.floating,
-                  //   backgroundColor: Colors.transparent,
-                  //
-                  //   elevation: 0,
-                  // ),);
+                  addElement(cartItems(
+                      index: widget.index, med: widget.meds, num: 1, id: 1));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                              color: Color(0xffb0bec5),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18))),
+                          height: 60,
+                          child: Text(
+                            "Product Add to Cart Succssefully :)",
+                            style: TextStyle(color: Colors.black),
+                          )),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                    ),
+                  );
                   AwesomeDialog(
                     context: context,
                     animType: AnimType.TOPSLIDE,

@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:helloworld/Api/Api_service.dart';
 import 'package:helloworld/category_products.dart';
 import 'package:helloworld/productInfo.dart';
 import 'package:helloworld/constants.dart';
 import 'package:helloworld/about.dart';
 import 'package:flutter/src/material/bottom_navigation_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../AddToCart.dart';
 import '../Med.dart';
@@ -16,6 +20,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<dynamic> data = [];
   int currentTab = 0;
 
   @override
@@ -303,59 +308,80 @@ class _HomeState extends State<Home> {
     );
   }
 
+  //  getdata() async {
+  //   final SharedPreferences pref = await SharedPreferences.getInstance();
+  //   print(pref.getString("token"));
+  //   return pref.getString("token").toString();
+  // }
+
   Widget _listViewProduct() {
-    List<Med> medicens = [
-      Med(
-        id: 1,
-        img: 'assets/valsatens-plus160_1.png',
-        name: 'Valsatens-Plus',
-        price: 125,
-        rating: '4.9',
-      ),
-      Med(
-        id: 2,
-          img: 'assets/nexture.png',
-          name: 'Nexicure',
-          price: 50,
-          rating: '4.9'),
-      Med(
-        id: 3,
-          img: 'assets/Natrilix-sr.png',
-          name: 'Natrilix SR',
-          price: 200,
-          rating: '4'),
-      Med(
-        id: 4,
-          img: 'assets/floxamo.png',
-          name: 'Floxamo',
-          price: 100,
-          rating: '3.5'),
-      Med(
-        id: 5,
-          img: 'assets/paramol-sol-tabs.png',
-          name: 'Paramol',
-          price: 20,
-          rating: '3'),
-      Med(
-        id: 6,
-          img: 'assets/Metformin.png',
-          name: 'Metformin',
-          price: 30,
-          rating: '4'),
-      Med(
-        id: 7,
-          img: 'assets/dermatop.png',
-          name: 'Dermato',
-          price: 45,
-          rating: '4.4'),
-      Med(
-          id:8,img: 'assets/uripan.png', name: 'Uripan', price: 50, rating: '3.5'),
-    ];
+    APIservice3 apIservice3 = new APIservice3();
+
+    apIservice3
+        .fetch({"token": "b09301323918684391bfcd6b89c2fd73767c217d"}).then(
+            (value) => {
+                  setState(() {
+                    data = value.product_list;
+                  })
+                });
+    // print(data);
+
+    // List<Med> medicens = [
+    //   Med(
+    //     id: 1,
+    //     img: 'assets/valsatens-plus160_1.png',
+    //     name: 'Valsatens-Plus',
+    //     price: 125,
+    //     rating: '4.9',
+    //   ),
+    //   Med(
+    //       id: 2,
+    //       img: 'assets/nexture.png',
+    //       name: 'Nexicure',
+    //       price: 50,
+    //       rating: '4.9'),
+    //   Med(
+    //       id: 3,
+    //       img: 'assets/Natrilix-sr.png',
+    //       name: 'Natrilix SR',
+    //       price: 200,
+    //       rating: '4'),
+    //   Med(
+    //       id: 4,
+    //       img: 'assets/floxamo.png',
+    //       name: 'Floxamo',
+    //       price: 100,
+    //       rating: '3.5'),
+    //   Med(
+    //       id: 5,
+    //       img: 'assets/paramol-sol-tabs.png',
+    //       name: 'Paramol',
+    //       price: 20,
+    //       rating: '3'),
+    //   Med(
+    //       id: 6,
+    //       img: 'assets/Metformin.png',
+    //       name: 'Metformin',
+    //       price: 30,
+    //       rating: '4'),
+    //   Med(
+    //       id: 7,
+    //       img: 'assets/dermatop.png',
+    //       name: 'Dermato',
+    //       price: 45,
+    //       rating: '4.4'),
+    //   Med(
+    //       id: 8,
+    //       img: 'assets/uripan.png',
+    //       name: 'Uripan',
+    //       price: 50,
+    //       rating: '3.5'),
+    // ];
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20),
       height: 300,
       child: ListView.separated(
-        itemCount: medicens.length,
+        itemCount: data.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
@@ -364,7 +390,7 @@ class _HomeState extends State<Home> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          productInfo(meds: medicens[index])));
+                          productInfo(meds: data,index: index,)));
             },
             child: Column(
               children: [
@@ -376,8 +402,8 @@ class _HomeState extends State<Home> {
                   width: MediaQuery.of(context).size.width * 0.4,
                   child: Column(
                     children: [
-                      Image.asset(
-                        medicens[index].img,
+                      Image.network(
+                        data[index]["img"],
                         width: 200,
                         height: 200,
                       ),
@@ -391,7 +417,7 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          medicens[index].name,
+                          data[index]["name"],
                           style: TextStyle(
                             fontSize: 20,
                           ),

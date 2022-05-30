@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> setdata(token) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("toke", token);
+    pref.setString("token", token);
   }
 
   @override
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   "password": passwordController.text
                 }).then((value) {
                   // print(value.token);
-
+                      print(value.status);
                   if (value.status == "success") {
                     final snackBar = SnackBar(content: Text("login"));
 
