@@ -114,6 +114,7 @@ class RegisterScreen extends StatelessWidget {
                   "address": locationController.text,
                   "name": usernameController.text
                 }).then((value) {
+                  
                   if (value.status=="success") {
                     print(value.status);
 

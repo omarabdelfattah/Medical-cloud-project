@@ -14,55 +14,61 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  int currentTab = 0;
-  List<Med> medicens = [
-    Med(
-      id: 1,
-      img: 'assets/valsatens-plus160_1.png',
-      name: 'Valsatens-Plus',
-      price: 125,
-      rating: '4.9',
-    ),
-    Med(id:2,img: 'assets/nexture.png', name: 'Nexicure', price: 50, rating: '4.9'),
-    Med(
-      id: 3,
-        img: 'assets/Natrilix-sr.png',
-        name: 'Natrilix SR',
-        price: 200,
-        rating: '4'),
-    Med(
-        id:4,img: 'assets/floxamo.png', name: 'Floxamo', price: 100, rating: '3.5'),
-    Med(
-      id: 5,
-        img: 'assets/paramol-sol-tabs.png',
-        name: 'Paramol',
-        price: 20,
-        rating: '3'),
-    Med(id:6,img: 'assets/Metformin.png', name: 'Metformin', price: 30, rating: '4'),
-    Med(id:7,img: 'assets/dermatop.png', name: 'Dermato', price: 45, rating: '4.4'),
-    Med(id:8,img: 'assets/uripan.png', name: 'Uripan', price: 50, rating: '3.5'),
-  ];
 
-  Widget Cards(Med meds) {
+ 
+
+  int currentTab = 0;
+  // List<Med> medicens = [
+  //   Med(
+  //     id: 1,
+  //     img: 'assets/valsatens-plus160_1.png',
+  //     name: 'Valsatens-Plus',
+  //     price: 125,
+  //     rating: '4.9',
+  //   ),
+  //   Med(id:2,img: 'assets/nexture.png', name: 'Nexicure', price: 50, rating: '4.9'),
+  //   Med(
+  //     id: 3,
+  //       img: 'assets/Natrilix-sr.png',
+  //       name: 'Natrilix SR',
+  //       price: 200,
+  //       rating: '4'),
+  //   Med(
+  //       id:4,img: 'assets/floxamo.png', name: 'Floxamo', price: 100, rating: '3.5'),
+  //   Med(
+  //     id: 5,
+  //       img: 'assets/paramol-sol-tabs.png',
+  //       name: 'Paramol',
+  //       price: 20,
+  //       rating: '3'),
+  //   Med(id:6,img: 'assets/Metformin.png', name: 'Metformin', price: 30, rating: '4'),
+  //   Med(id:7,img: 'assets/dermatop.png', name: 'Dermato', price: 45, rating: '4.4'),
+  //   Med(id:8,img: 'assets/uripan.png', name: 'Uripan', price: 50, rating: '3.5'),
+  // ];
+
+  Widget Cards(List meds) {
+  
+
+    
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
       child: GestureDetector(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => productInfo(meds: meds)));
+              MaterialPageRoute(builder: (context) => productInfo(meds: meds,index:0,)));
         },
         child: Card(
           color: const Color(0xfff6e8ea),
           elevation: 5,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(0),
           ),
           child: Row(
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Image.asset(
-                  meds.img,
+                child: Image.network(
+                  meds[0]["img"],
                   width: 100,
                 ),
               ),
@@ -71,7 +77,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    meds.name,
+                    meds[0]["name"],
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                   const SizedBox(
@@ -84,7 +90,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       size: 25,
                     ),
                     Text(
-                      meds.rating,
+                      meds[0]["rating"],
                       style: const TextStyle(
                         fontSize: 20,
                       ),
@@ -98,7 +104,7 @@ class _ProductsPageState extends State<ProductsPage> {
                             fontWeight: FontWeight.bold, fontSize: 22),
                       ),
                       Text(
-                        '${meds.price} EGP',
+                        meds[0]["price"] +'EGP',
                         style: const TextStyle(fontSize: 20),
                       )
                     ],
@@ -130,7 +136,7 @@ class _ProductsPageState extends State<ProductsPage> {
           child: Container(
             margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
             child: Column(
-              children: medicens.map((e) => Cards(e)).toList(),
+              // children: medicens.map((e) => Cards(e)).toList(),
             ),
           ),
         ),

@@ -42,13 +42,20 @@ class _AddToCartState extends State<AddToCart> {
 
   int total = 0;
 
+  
+
   Widget added(cartItems sample) {
+
+    String name=sample.med[sample.index]["name"];
+    String price=sample.med[sample.index]["price"];
+    
+
     return Dismissible(
       onDismissed: (direction) {
         removeElement(sample);
-        setState((){total-=(sample.num*sample.med.price);});
+        // setState((){total-=(sample.num*sample.med.price);});
       },
-      key: Key('${sample.med.id}'),
+      key: Key(sample.med[sample.index]["id"]),
       direction: DismissDirection.endToStart,
       background: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -70,26 +77,26 @@ class _AddToCartState extends State<AddToCart> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Image.asset(
-                sample.med.img,
+                sample.med[sample.index]["img"],
                 width: 100,
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  sample.med.name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                ),
+                // Text(
+                //   name,
+                //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
-                    Text(
-                      "${sample.med.price} EGP",
-                      style: TextStyle(fontSize: 22),
-                    ),
+                    // Text(
+                    //   price+" EGP",
+                    //   style: TextStyle(fontSize: 22),
+                    // ),
                     SizedBox(
                       width: 80,
                     ),
@@ -107,10 +114,10 @@ class _AddToCartState extends State<AddToCart> {
                         child: Icon(Icons.remove),
                       ),
                     ),
-                    Text(
-                      '${sample.num}',
-                      style: TextStyle(fontSize: 22),
-                    ),
+                    // Text(
+                    //   '${sample.num}',
+                    //   style: TextStyle(fontSize: 22),
+                    // ),
                     GestureDetector(
                       onTap: () {
                         setState(() {
@@ -219,11 +226,11 @@ class _AddToCartState extends State<AddToCart> {
                     'SubTotal: ',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    '${cart.length > 0 ? cart.map((e) => (e.num * e.med.price)).reduce((value, element) => value + element).toString() : 0} EGP',
-                    // total.toString(),
-                    style: TextStyle(fontSize: 22),
-                  )
+                  // Text(
+                  //   '${cart.length > 0 ? cart.map((e) => (e.num * e.med[e.index]["price"])).reduce((value, element) => value + element).toString() : 0} EGP',
+                  //   // total.toString(),
+                  //   style: TextStyle(fontSize: 22),
+                  // )
                 ],
               ),
             ),
@@ -255,10 +262,10 @@ class _AddToCartState extends State<AddToCart> {
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    Text(
-                      '${cart.length > 0 ? cart.map((e) => (e.num * e.med.price)).reduce((value, element) => (value + element)).toString() : 0} EGP',
-                      style: TextStyle(fontSize: 25),
-                    ),
+                    // Text(
+                    //   '${cart.length > 0 ? cart.map((e) => (e.num * e.med[e.index]["price"])).reduce((value, element) => (value + element)).toString() : 0} EGP',
+                    //   style: TextStyle(fontSize: 25),
+                    // ),
                   ],
                 ),
                 Container(
