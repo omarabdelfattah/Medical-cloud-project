@@ -1,0 +1,203 @@
+{
+    "containerDefinitions": [
+        {
+            "command": [
+                "--default-authentication-plugin=mysql_native_password"
+            ],
+            "environment": [
+                {
+                    "name": "MYSQL_ROOT_PASSWORD",
+                    "value": "root"
+                }
+            ],
+            "essential": true,
+            "image": "mysql",
+            "mountPoints": [
+                {
+                    "containerPath": "/var/lib/mysql",
+                    "sourceVolume": "Accounts_Db"
+                }
+            ],
+            "name": "accounts_db"
+        },
+        {
+            "command": [
+                "php",
+                "-S",
+                "0.0.0.0:9090"
+            ],
+            "essential": true,
+            "image": "omarabdelfattah/api",
+            "links": [
+                "inventory_db:db",
+                "auth_db:db",
+                "accounts_db:db"
+            ],
+            "name": "api",
+            "portMappings": [
+                {
+                    "containerPort": 9090,
+                    "hostPort": 9090
+                }
+            ]
+        },
+        {
+            "command": [
+                "--default-authentication-plugin=mysql_native_password"
+            ],
+            "environment": [
+                {
+                    "name": "MYSQL_ROOT_PASSWORD",
+                    "value": "root"
+                }
+            ],
+            "essential": true,
+            "image": "mysql",
+            "mountPoints": [
+                {
+                    "containerPath": "/var/lib/mysql",
+                    "sourceVolume": "Auth_Db"
+                }
+            ],
+            "name": "auth_db"
+        },
+        {
+            "essential": true,
+            "image": "omarabdelfattah/frontendserver",
+            "name": "frontendserver",
+            "portMappings": [
+                {
+                    "containerPort": 3000,
+                    "hostPort": 3000
+                }
+            ]
+        },
+        {
+            "command": [
+                "--default-authentication-plugin=mysql_native_password"
+            ],
+            "environment": [
+                {
+                    "name": "MYSQL_ROOT_PASSWORD",
+                    "value": "root"
+                }
+            ],
+            "essential": true,
+            "image": "mysql",
+            "mountPoints": [
+                {
+                    "containerPath": "/var/lib/mysql",
+                    "sourceVolume": "Inventory_Db"
+                }
+            ],
+            "name": "inventory_db"
+        },
+        {
+            "command": [
+                "--default-authentication-plugin=mysql_native_password"
+            ],
+            "environment": [
+                {
+                    "name": "MYSQL_ROOT_PASSWORD",
+                    "value": "root"
+                }
+            ],
+            "essential": true,
+            "image": "mysql",
+            "mountPoints": [
+                {
+                    "containerPath": "/var/lib/mysql",
+                    "sourceVolume": "Orders_Db"
+                }
+            ],
+            "name": "orders_db"
+        },
+        {
+            "environment": [
+                {
+                    "name": "PMA_ARBITRARY",
+                    "value": "0"
+                }
+            ],
+            "essential": true,
+            "image": "phpmyadmin",
+            "links": [
+                "accounts_db:db"
+            ],
+            "name": "phpmyadmin_accounts",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 7071
+                }
+            ]
+        },
+        {
+            "environment": [
+                {
+                    "name": "PMA_ARBITRARY",
+                    "value": "0"
+                }
+            ],
+            "essential": true,
+            "image": "phpmyadmin",
+            "links": [
+                "inventory_db:db"
+            ],
+            "name": "phpmyadmin_inventory",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 7070
+                }
+            ]
+        },
+        {
+            "environment": [
+                {
+                    "name": "PMA_ARBITRARY",
+                    "value": "0"
+                }
+            ],
+            "essential": true,
+            "image": "phpmyadmin",
+            "links": [
+                "orders_db:db"
+            ],
+            "name": "phpmyadmin_orders",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 7072
+                }
+            ]
+        }
+    ],
+    "family": "",
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "accounts_db"
+            },
+            "name": "Accounts_Db"
+        },
+        {
+            "host": {
+                "sourcePath": "inventory_db"
+            },
+            "name": "Inventory_Db"
+        },
+        {
+            "host": {
+                "sourcePath": "auth_db"
+            },
+            "name": "Auth_Db"
+        },
+        {
+            "host": {
+                "sourcePath": "orders_db"
+            },
+            "name": "Orders_Db"
+        }
+    ]
+}
