@@ -47,6 +47,13 @@ input {
   outline: none;
   background-color: #fff;
 }
+textarea{
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 25px 0px #888;
+  border: none;
+  outline: none;
+  background-color: #fff;
+}
 input.search{
   font-size: small;
   width: 78%;

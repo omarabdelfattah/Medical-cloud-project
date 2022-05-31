@@ -46,13 +46,19 @@ if($request_method == "POST" ){
                 $products = "INSERT INTO `orders` (`user_id`, `product_id`, `count`, `order_date`) VALUES (:user_id, :product_id, :count, now())";
                 $products_stmt = $conn_orders->prepare($products);
                 $products_stmt->bindValue(':user_id',$id, PDO::PARAM_STR);
-                $products_stmt->bindValue(':product_id',$product->product_id, PDO::PARAM_STR);
+                $products_stmt->bindValue(':product_id',$product->id, PDO::PARAM_STR);
                 $products_stmt->bindValue(':count',$product->count, PDO::PARAM_STR);
                 $products_stmt->execute();
             }
 
             #check if order is inserted
             if ($products_stmt->rowCount()){
+
+                $products = "Delete FROM `cart` WHERE `user_id` = :user_id";
+                $products_stmt = $conn_accounts->prepare($products);
+                $products_stmt->bindValue(':user_id',$id, PDO::PARAM_STR);
+                $products_stmt->execute();
+
                 $data = [
                     "status" => "success",
                     "msg"    => 'Order placed successfully'

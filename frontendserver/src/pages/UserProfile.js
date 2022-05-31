@@ -24,7 +24,7 @@ function UserProfile() {
 
 
  
-     const [cookies,removeCookie] = useCookies(['token', 'name', 'username', 'email', 'phone', 'address']);
+    const [cookies,removeCookie] = useCookies(['token', 'name', 'username', 'email', 'phone', 'address']);
     const name =  cookies.name;
     const username =  cookies.username;
     const email =  cookies.email;

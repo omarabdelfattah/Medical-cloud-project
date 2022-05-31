@@ -46,7 +46,7 @@ if($request_method == "POST" ){
                 $products = "Delete FROM `cart` WHERE `user_id` = :user_id AND `product_id` = :product_id";
                 $products_stmt = $conn_accounts->prepare($products);
                 $products_stmt->bindValue(':user_id',$id, PDO::PARAM_STR);
-                $products_stmt->bindValue(':product_id',$product->product_id, PDO::PARAM_STR);
+                $products_stmt->bindValue(':product_id',$product->id, PDO::PARAM_STR);
                 $products_stmt->execute();
             }
 
