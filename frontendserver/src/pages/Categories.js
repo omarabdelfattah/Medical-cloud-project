@@ -77,7 +77,7 @@ function Categories() {
   
     }
   
-  }, []);
+  }, [id]);
   const data = Array.from(products_list)
 
   return (

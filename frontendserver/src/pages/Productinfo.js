@@ -15,13 +15,20 @@ function Productinfo() {
 
   const Swal = require('sweetalert2')
 
-
   const [cookies] = useCookies(['token']);
   const token =  cookies.token;
+  const [products_list, setProductsList] = useState("");
 
-  const [product_info, setproductInfo] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+
+
+  useEffect(async ()  => {
+    console.log(token)
+  }, []);
+  
+  const [product_info, setproductInfo] = useState("");
+
 
   // console.log("hey "+name+ " your token is "+ token );
 

@@ -20,22 +20,14 @@ function PageNav() {
   const Navigate = useNavigate();
 
   const [cookies] = useCookies(['token', 'name', 'username', 'email', 'phone', 'address']);
-  const name =  cookies.name;
-  const username =  cookies.username;
-  const email =  cookies.email;
-  const phone =  cookies.phone;
-  const address =  cookies.address;
+  const token =  cookies.token;
   const [categories_list, setCategoriesList] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const [token, setToken] = useState(false);
   const [search, setSearch] = useState("");
 
-  useEffect(async ()  => {
-    console.log(  cookies.token)
-    setToken(cookies.token);
-  }, []);
+
 
 
   
@@ -54,7 +46,9 @@ function PageNav() {
   useEffect(async () => {
     try {
       const response = await axios.post(CATEGORIES_URL,
-        JSON.stringify({token:cookies.token}),
+        JSON.stringify({
+          token:token
+        }),
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -183,7 +177,7 @@ function PageNav() {
         </Row>
       </div>
     </Navbar>
-  ) :<div><script > {window.location = "/login"} </script></div>;
+  ) :<div><script ></script></div>;
   
 }
 
