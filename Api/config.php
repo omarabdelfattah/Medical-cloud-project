@@ -1,8 +1,7 @@
 <?php
-// $servername = "inventory_db";
-$servername = "localhost";
+$servername = "inventory_db";
 $username = "root";
-$password = "";
+$password = "root";
 
 try {
   $conn_inventory = new PDO("mysql:host=$servername;dbname=inventory", $username, $password);
@@ -13,10 +12,10 @@ try {
    $e->getMessage();
 }
 
-// $servername = "accounts_db";
-$servername = "localhost";
+$servername = "accounts_db";
 $username = "root";
-$password = "";
+$password = "root";
+
 
 try {
   $conn_accounts = new PDO("mysql:host=$servername;dbname=accounts", $username, $password);
@@ -27,10 +26,10 @@ try {
    $e->getMessage();
 }
 
-// $servername = "orders_db";
-$servername = "localhost";
+$servername = "orders_db";
 $username = "root";
-$password = "";
+$password = "root";
+
 
 try {
   $conn_orders = new PDO("mysql:host=$servername;dbname=orders", $username, $password);

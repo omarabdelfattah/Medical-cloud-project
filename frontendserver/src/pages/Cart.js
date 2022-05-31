@@ -245,11 +245,15 @@ function Cart() {
                      <tr key={index}>
                      <th scope="row">{index+1}</th>
                      <td>{product.name}</td>
-                     <td> <img src={product.img} /></td>
+                     <td> <img style={{ "max-width": "67px" }} src={product.img} /></td>
                      <td>{product.price} L.E</td>
                      <td>{product.count}</td>
                      <td className="">
-                       <button  className="btn btn-danger mx-auto text-white" data-key={index} data-id={product.id} onClick={handleDelete} >Delete</button>
+                       <button  className="btn btn-danger mx-auto text-white" 
+                       data-key={index} 
+                       data-id={product.id}
+                        onClick={handleDelete} 
+                        style={{ "max-width": "94px" , "max-height":"43px"}}>Delete</button>
                      </td>
                    </tr>
                   ))

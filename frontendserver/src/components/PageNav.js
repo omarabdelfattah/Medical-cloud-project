@@ -177,7 +177,7 @@ function PageNav() {
         </Row>
       </div>
     </Navbar>
-  ) :<div><script ></script></div>;
+  ) :<div><script >{ window.location = "/login" }</script></div>;
   
 }
 
