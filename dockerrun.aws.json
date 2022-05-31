@@ -1,4 +1,5 @@
 {
+    "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
         {
             "command": [
@@ -12,6 +13,7 @@
             ],
             "essential": true,
             "image": "mysql",
+            "memory": 100,
             "mountPoints": [
                 {
                     "containerPath": "/var/lib/mysql",
@@ -33,6 +35,7 @@
                 "auth_db:db",
                 "accounts_db:db"
             ],
+            "memory": 100,
             "name": "api",
             "portMappings": [
                 {
@@ -53,6 +56,7 @@
             ],
             "essential": true,
             "image": "mysql",
+            "memory": 100,
             "mountPoints": [
                 {
                     "containerPath": "/var/lib/mysql",
@@ -64,6 +68,7 @@
         {
             "essential": true,
             "image": "omarabdelfattah/frontendserver",
+            "memory": 100,
             "name": "frontendserver",
             "portMappings": [
                 {
@@ -84,6 +89,7 @@
             ],
             "essential": true,
             "image": "mysql",
+            "memory": 100,
             "mountPoints": [
                 {
                     "containerPath": "/var/lib/mysql",
@@ -104,6 +110,7 @@
             ],
             "essential": true,
             "image": "mysql",
+            "memory": 100,
             "mountPoints": [
                 {
                     "containerPath": "/var/lib/mysql",
@@ -124,6 +131,7 @@
             "links": [
                 "accounts_db:db"
             ],
+            "memory": 100,
             "name": "phpmyadmin_accounts",
             "portMappings": [
                 {
@@ -144,6 +152,7 @@
             "links": [
                 "inventory_db:db"
             ],
+            "memory": 100,
             "name": "phpmyadmin_inventory",
             "portMappings": [
                 {
@@ -164,6 +173,7 @@
             "links": [
                 "orders_db:db"
             ],
+            "memory": 100,
             "name": "phpmyadmin_orders",
             "portMappings": [
                 {
