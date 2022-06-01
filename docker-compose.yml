@@ -2,11 +2,10 @@ version: "3.8"
 services:
   frontendserver:
     container_name: frontendserver
-    image: omarabdelfattah/frontendserver
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile2
-    #   target: development
+    build:
+      context: .
+      dockerfile: Dockerfile2
+      target: development
     working_dir: /frontendserver
     # volumes:
     #   - ./:/frontendserver
@@ -15,10 +14,9 @@ services:
 
   api:
     container_name: api
-    image: omarabdelfattah/api
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     working_dir: /api
     ports:
       - 9090:9090
