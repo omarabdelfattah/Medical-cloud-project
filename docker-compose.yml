@@ -11,6 +11,10 @@ services:
     #   - ./:/frontendserver
     ports:
       - 3000:3000
+    depends_on:
+      - api
+    links:
+      - api:9090
 
   api:
     container_name: api
